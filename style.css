@@ -1,0 +1,96 @@
+/* ማሳሰቢያ፡ ይህንን ኮድ style.css በሚል ፋይል አስቀምጠው */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #333;
+}
+
+h1 {
+    color: #1a365d;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+#bingo-board {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    max-width: 450px;
+    width: 100%;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.cell {
+    background-color: #edf2f7;
+    border: 2px solid #cbd5e0;
+    border-radius: 8px;
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.cell:hover {
+    background-color: #e2e8f0;
+    transform: scale(1.02);
+}
+
+/* ተጫዋቹ ቁጥሩን ሲነካው የሚሆንበት ከለር */
+.cell.marked {
+    background-color: #3182ce;
+    color: #fff;
+    border-color: #2b6cb0;
+    animation: pulse 0.3s ease-in-out;
+}
+
+/* መሃል ላይ ያለችው ፍሪ ቦታ */
+.cell.free-space {
+    background-color: #feebc8;
+    color: #dd6b20;
+    border-color: #fbd38d;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.cell.free-space.marked {
+    background-color: #dd6b20;
+    color: #fff;
+}
+
+#status {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #2d3748;
+    height: 30px;
+}
+
+.won-message {
+    color: #38a169 !important;
+    animation: bounce 0.5s infinite alternate;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+@keyframes bounce {
+    from { transform: translateY(0); }
+    to { transform: translateY(-5px); }
+}
