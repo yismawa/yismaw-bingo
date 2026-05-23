@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="am">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>🎱 ይስማዉ ቢንጎ</title>
+<style>
+:root {
+  --gold: #FFD700;
+  --radius: 16px;
+  --eth-green: #00FF66;
+  --eth-yellow: #FFFF00;
+  --eth-red: #FF0033;
+  --dark-bg: #050b0d;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: linear-gradient(135deg, #020608, #091920, #112530);
+  min-height: 100vh;
+  color: white;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.big-welcome-banner {
+  background: rgba(0, 0, 0, 0.6);
+  border: 3px solid var(--eth-yellow);
+  border-radius: var(--radius);
+  padding: 30px 16px;
+  text-align: center;
+  margin-bottom: 25px;
+  position: relative;
+  overflow: hidden;
+  animation: neonBorderGlow 4s infinite alternate;
+}
+
+@keyframes neonBorderGlow {
+  0% { border-color: var(--eth-green); box-shadow: 0 0 25px var(--eth-green), inset 0 0 15px rgba(0,255,102,0.3); }
+  50% { border-color: var(--eth-yellow); box-shadow: 0 0 25px var(--eth-yellow), inset 0 0 15px rgba(255,255,0,0.3); }
+  100% { border-color: var(--eth-red); box-shadow: 0 0 25px var(--eth-red), inset 0 0 15px rgba(255,0,51,0.3); }
+}
+
+.animated-title {
+  font-size: 2.4rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  background: linear-gradient(to right, var(--eth-green), var(--eth-yellow), var(--eth-red), var(--eth-green));
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shineText 3s linear infinite;
+}
+
+@keyframes shineText {
+  0% { background-position: 0% center; }
+  100% { background-position: 300% center; }
+}
+
+.sub-welcome-text {
+  font-size: 1.1rem;
+  color: #ffffff;
+  margin-top: 10px;
+  text-shadow: 0 0 8px rgba(255,255,255,0.6);
+}
+
+.rules-list, .safety-list {
+  text-align: left; padding-left: 20px; margin-top: 10px; font-size: 0.95rem; line-height: 1.5;
+}
+.rules-list li { margin-bottom: 6px; color: #e0e0e0; }
+.safety-card {
+  border-left: 5px solid var(--eth-red) !important;
+  background: rgba(255, 0, 51, 0.05) !important;
+}
+
+.action-btn {
+  background: linear-gradient(90deg, #00FF66, #00cc52);
+  color: black; border: none; padding: 15px 28px;
+  font-size: 1.1rem; font-weight: bold; border-radius: 30px;
+  cursor: pointer; width: 100%; margin-top: 15px;
+  box-shadow: 0 5px 20px rgba(0,255,102,0.4);
+  transition: all 0.3s ease;
+}
+.action-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0,255,102,0.7);
+}
+
+header {
+  background: rgba(5,11,13,0.9); backdrop-filter: blur(10px);
+  padding: 16px; display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 2px solid var(--eth-yellow); position: sticky; top: 0; z-index: 100;
+}
+.logo-title {
+  font-size: 1.6rem; font-weight: 900;
+  background: linear-gradient(to right, var(--eth-green), var(--eth-yellow), var(--eth-red));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+main { padding: 16px; padding-bottom: 90px; max-width: 500px; margin: 0 auto; }
+.card {
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--radius); padding: 20px; margin-bottom: 16px;
+  backdrop-filter: blur(10px); box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+.stat-g { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+.stat-box { background: rgba(255,255,255,0.04); border-radius: 12px; padding: 12px; text-align: center; }
+.stat-v { font-size: 1.6rem; font-weight: 800; color: var(--gold); margin-top: 4px; }
+
+.prize-banner {
+  background: linear-gradient(135deg, rgba(0,255,102,0.1), rgba(255,255,0,0.1));
+  border: 2px dashed var(--eth-yellow); text-align: center; padding: 16px; border-radius: 12px; margin-bottom: 20px;
+}
+.input-f {
+  width: 100%; padding: 14px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 10px; color: white; font-size: 1rem; margin-top: 8px; outline: none;
+}
+.input-f:focus { border-color: var(--eth-green); box-shadow: 0 0 10px var(--eth-green); }
+
+.b-card { border-radius: 14px; padding: 18px; margin-top: 14px; border: 2px solid rgba(255,255,255,0.1); box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+.b-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.b-logo { font-size: 1.1rem; font-weight: bold; padding: 6px 14px; border-radius: 6px; text-transform: uppercase; }
+
+.cbe-card { background: linear-gradient(135deg, #4A0E4E, #2A082C); border-color: #9b59b6; box-shadow: 0 0 15px rgba(155,89,182,0.4); }
+.cbe-logo { background: #8E44AD; color: white; text-shadow: 0 0 5px #fff; }
+.addis-card { background: linear-gradient(135deg, #003366, #001a33); border-color: #FFFF00; box-shadow: 0 0 15px rgba(0,51,102,0.5); }
+.addis-logo { background: #0055a5; color: #FFFF00; border: 1px solid #FFFF00; }
+.boa-card { background: linear-gradient(135deg, #A67C1E, #59420F); border-color: #FFD700; box-shadow: 0 0 15px rgba(255,215,0,0.4); }
+.boa-logo { background: #FFD700; color: black; font-weight: 900; }
+.tele-card { background: linear-gradient(135deg, #0066cc, #003366); border-color: #00FF66; box-shadow: 0 0 15px rgba(0,102,204,0.4); }
+.tele-logo { background: #0088ff; color: white; }
+
+.copy-b { background: rgba(255,255,255,0.25); border: none; color: white; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+.copy-b:hover { background: #ffffff; color: black; }
+
+.grid5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-top: 10px; }
+.cell {
+  aspect-ratio: 1; background: rgba(255,255,255,0.08); border-radius: 8px;
+  display: flex; align-items: center; justify-content: center; font-size: 1.3rem; font-weight: bold;
+  cursor: pointer; transition: 0.2s; border: 1px solid rgba(255,255,255,0.05);
+}
+.cell.marked { background: var(--eth-green); color: black; box-shadow: 0 0 15px var(--eth-green); }
+.cell.free { background: var(--eth-red); color: white; font-size: 0.8rem; box-shadow: 0 0 10px var(--eth-red); }
+
+.p-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.p-badge { padding: 4px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: bold; }
+.p-badge.active { background: rgba(0,255,102,0.2); color: var(--eth-green); }
+.p-badge.waiting { background: rgba(255,255,0,0.2); color: var(--eth-yellow); }
+.p-badge.pending { background: rgba(0,136,255,0.2); color: #0088ff; }
+
+.adm-ctrl { display: flex; flex-direction: column; gap: 10px; }
+.num-disp { font-size: 4rem; font-weight: 900; text-align: center; color: var(--eth-yellow); text-shadow: 0 0 20px var(--eth-yellow); margin: 15px 0; }
+
+nav {
+  position: fixed; bottom: 0; left: 0; width: 100%; background: #050b13;
+  display: flex; border-top: 2px solid rgba(255,255,0,0.2); z-index: 100;
+}
+.tb { flex: 1; border: none; background: transparent; color: rgba(255,255,255,0.5); padding: 14px 6px; font-size: 0.85rem; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.tb.active { color: var(--eth-yellow); font-weight: bold; text-shadow: 0 0 8px var(--eth-yellow); }
+.tb svg { width: 22px; height: 22px; fill: currentColor; }
+.pg { display: none; }
+.pg.active { display: block; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-title">🎱 ይስማዉ ቢንጎ</div>
+  <div id="lang-btn" style="cursor:pointer; font-size:0.9rem; background:rgba(255,255,255,0.15); padding:6px 12px; border-radius:20px; font-weight:bold;" onclick="toggleLang()">EN</div>
+</header>
+
+<main>
+  <div id="pg-lobby" class="pg active">
+    <div class="big-welcome-banner">
+      <div class="animated-title" id="t-welcome">እንኳን ደህና መጡ!</div>
+      <div class="sub-welcome-text" id="t-subtitle">የኢትዮጵያ ቁጥር 1 ዲጂታል የቢንጎ ጨዋታ መድረክ</div>
+    </div>
+
+    <div class="card" id="join-card">
+      <h3 style="margin-bottom:6px;" id="t-enter-details">ለመጫወት መረጃዎን ያስገቡ</h3>
+      <input type="text" id="reg-name" class="input-f" placeholder="ሙሉ ስምዎን እዚህ ያስገቡ..."/>
+      
+      <div id="admin-pass-container" style="margin-top: 10px; display: none;">
+        <label style="font-size:0.85rem; color:var(--eth-red); font-weight: bold;">የአስተዳዳሪ ይለፍ ቃል (Password)፦</label>
+        <input type="password" id="admin-password" class="input-f" placeholder="የአስተዳዳሪ ፓስወርድ እዚህ ያስገቡ..."/>
+      </div>
+
+      <button class="action-btn" onclick="joinGame()" id="btn-register">ለመመዝገብ ይጫኑ</button>
+      <div style="text-align: center; margin-top: 12px;">
+        <span style="font-size: 0.85rem; color: #aaa; cursor: pointer; text-decoration: underline;" onclick="toggleAdminLoginField()">አስተዳዳሪ ነኝ (Admin Login)</span>
+      </div>
+    </div>
+
+    <div class="card" style="border-left: 5px solid var(--eth-green);">
+      <h3 style="color: var(--eth-green);" id="t-rules-title">📜 የጨዋታው ህግና ደንብ</h3>
+      <ul class="rules-list" id="rules-box">
+        <li>1. በሎቢው በመመዝገብ የመረጡትን የባንክ አማራጭ ተጠቅመው 50 ብር ይክፈሉ።</li>
+        <li>2. የክፍያ ማረጋገጫ ቁጥርዎን (Ref No) ሲያስገቡ በራስ-ሰር የቢንጎ ካርድ ይሰጥዎታል።</li>
+        <li>3. አስተዳዳሪው ቁጥሮችን በየተራ ሲወጣ፣ በካርድዎ ላይ ያሉትን ቁጥሮች በመንካት ያደምቁ።</li>
+        <li>4. በአግድም፣ በቁመት ወይም በሰያፍ 5 ቁጥሮችን ቀድሞ የሞላ "BINGO" በመጫን አሸናፊ ይሆናል!</li>
+      </ul>
+    </div>
+
+    <div class="stat-g">
+      <div class="stat-box"><div id="t-active-p">ተጫዋቾች</div><div class="stat-v" id="s-players">0</div></div>
+      <div class="stat-box"><div id="t-called-n">የወጡ ቁጥሮች</div><div class="stat-v" id="s-called">0</div></div>
+    </div>
+
+    <div class="prize-banner">
+      <div style="font-size:0.9rem;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.7);" id="t-grand-prize">የአሸናፊው ሽልማት</div>
+      <div class="stat-v" style="font-size:2.4rem;margin-top:4px;color:var(--eth-green);" id="prize-display">0 ብር</div>
+      <div style="font-size:0.8rem;color:rgba(255,255,255,0.5);margin-top:2px;" id="prize-sub">0 x 50 x 80%</div>
+    </div>
+
+    <div class="card safety-card">
+      <h3 style="color: var(--eth-red);" id="t-safety-title">⚠️ የጥንቃቄ መልዕክት</h3>
+      <ul class="safety-list" id="safety-box">
+        <li>• ጨዋታውን ለመዝናኛ ብቻ ይጫወቱት፤ ከሚችሉት በላይ ገንዘብ መድበው አይጫወቱ።</li>
+        <li>• በማንኛውም ሰዓት የቴክኒክ ችግር ካጋጠመዎት ለአስተዳዳሪው ያሳውቁ።</li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="pg-game" class="pg">
+    <div id="mycards"></div>
+  </div>
+
+  <div id="pg-payment" class="pg">
+    <div class="card">
+      <h3 style="margin-bottom:4px;" id="t-pay-title">የመግቢያ ክፍያ መክፈያ</h3>
+      <p style="font-size:0.9rem;color:rgba(255,255,255,0.6);margin-bottom:12px;" id="t-pay-sub">እባክዎ መጀመሪያ ክፍያ በመፈፀም የደረሰኝ ቁጥሩን (Ref No) ከታች ያስገቡ።</p>
+      <div id="banks-list"></div>
+      <div style="margin-top:16px;border-top:1px solid rgba(255,255,255,0.1);padding-top:16px;">
+        <label style="font-size:0.9rem;color:var(--eth-yellow);" id="t-lbl-ref">የክፍያ ማረጋገጫ ቁጥር (Txn Ref No):</label>
+        <input type="text" id="pay-ref-input" class="input-f" placeholder="ለምሳሌ፡ FT24... ወይም BP..."/>
+        <button class="action-btn" onclick="submitPayment()" style="background:linear-gradient(90deg,#FFFF00,#ffcc00);box-shadow:0 5px 15px rgba(255,255,0,0.3);" id="btn-submit-pay">ክፍያውን አረጋግጥ</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="pg-players" class="pg">
+    <div class="card">
+      <h3 style="margin-bottom:12px;" id="t-plist-title">የተጫዋቾች ዝርዝር</h3>
+      <div id="players-list"></div>
+    </div>
+  </div>
+
+  <div id="pg-admin" class="pg">
+    <div class="card adm-ctrl">
+      <h3>የአስተዳዳሪ መቆጣጠሪያ (Admin)</h3>
+      <div class="num-disp" id="adm-num">--</div>
+      <button class="action-btn" onclick="drawNumber()" style="background:#00FF66;color:black;">አዲስ ቁጥር አውጣ</button>
+      <button class="action-btn" id="auto-btn" onclick="toggleAutoDraw()" style="background:var(--gold);color:black;">አውቶማቲክ ጥሪ ጀምር (Auto Draw)</button>
+      <button class="action-btn" onclick="resetGame()" style="background:var(--eth-red);color:white;box-shadow:none;">ጨዋታውን አዲስ ጀምር (Reset)</button>
+    </div>
+    <div class="card" style="margin-top:16px;">
+      <h4 style="margin-bottom:10px;">ክፍያ የላኩ ተጫዋቾች ማረጋገጫና የካርቴላ ብዛት ቁጥጥር</h4>
+      <div id="admin-p-list"></div>
+    </div>
+  </div>
+</main>
+
+<nav>
+  <button class="tb active" onclick="showPage('lobby', this)" id="nv-lobby">
+    <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+    <span>ሎቢ</span>
+  </button>
+  <button class="tb" onclick="showPage('game', this)" id="nv-game">
+    <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM9 11H7V9h2v2zm4 0h-2V9h2v2zm4 0h-2V9h2v2z"/></svg>
+    <span>ካርዴ</span>
+  </button>
+  <button class="tb" onclick="showPage('payment', this)" id="nv-payment">
+    <svg viewBox="0 0 24 24"><path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2-.9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5 0.67 1.5 1.5-0.67 1.5-1.5 1.5z"/></svg>
+    <span>ክፍያ</span>
+  </button>
+  <button class="tb" onclick="showPage('players', this)" id="nv-players">
+    <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+    <span>ተጫዋቾች</span>
+  </button>
+  <button class="tb" onclick="showPage('admin', this)" style="display:none;" id="nv-admin">
+    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+    <span>አስተዳዳሪ</span>
+  </button>
+</nav>
+
+<script>
+const ST = {
+  lang: 'am',
+  entryFee: 50,
+  prizePct: 80,
+  maxCartela: 1000, 
+  adminPassword: "admin123", 
+  isAdminMode: false,
+  player: null,    
+  myCards: [],    
+  players: [],     
+  calledNums: [],  
+  autoInterval: null, 
+  banks: [
+    { name: 'የኢትዮጵያ ንግድ ባንክ (CBE)', acc: '1000353285266', holder: 'ይስማው አለማየሁ', cls: 'cbe-card', logoCls: 'cbe-logo' },
+    { name: 'አዲስ ባንክ (Addis Bank)', acc: '1240045642223001', holder: 'ይስማው አለማየሁ', cls: 'addis-card', logoCls: 'addis-logo' },
+    { name: 'አቢሲኒያ ባንክ (BoA)', acc: '22678862', holder: 'ይስማው አለማየሁ', cls: 'boa-card', logoCls: 'boa-logo' },
+    { name: 'ቴሌብር (Telebirr)', acc: '0912329647', holder: 'ይስማው አለማየሁ', cls: 'tele-card', logoCls: 'tele-logo' }
+  ]
+};
+
+const LABELS = {
+  am: {
+    welcome: "እንኳን ደህና መጡ!", subtitle: "የኢትዮጵያ ቁጥር 1 ዲጂታል የቢንጎ ጨዋታ መድረክ",
+    rules_title: "📜 የጨዋታው ህግና ደንብ", safety_title: "⚠️ የጥንቃቄ መልዕክት",
+    active_p: "ተጫዋቾች", called_n: "የወጡ ቁጥሮች", grand_prize: "የአሸናፊው ሽልማት",
+    enter_details: "ለመጫወት መረጃዎን ያስገቡ", btn_reg: "ለመመዝገብ ይጫኑ",
+    pay_title: "የመግቢያ ክፍያ መክፈያ", pay_sub: "እባክዎ መጀመሪያ ክፍያ በመፈፀም የደረሰኝ ቁጥሩን (Ref No) ከታች ያስገቡ።",
+    lbl_ref: "የክፍያ ማረጋገጫ ቁጥር (Txn Ref No):", btn_submit_pay: "ክፍያውን አረጋግጥ",
+    plist_title: "የተጫዋቾች ዝርዝር", join_game: "ለመጫወት እባክዎ መጀመሪያ ሎቢ ውስጥ ይመዝገቡ!",
+    nv_lobby: "ሎቢ", nv_game: "ካርዴ", nv_payment: "ክፍያ", nv_players: "ተጫዋቾች"
+  },
+  en: {
+    welcome: "Welcome to Bingo!", subtitle: "Ethiopia's Number 1 Digital Bingo Platform",
+    rules_title: "📜 Rules & Regulations", safety_title: "⚠️ Safety Notice",
+    active_p: "Active Players", called_n: "Numbers Called", grand_prize: "Grand Prize Pool",
+    enter_details: "Enter your details to join", btn_reg: "Register Now",
+    pay_title: "Payment Methods", pay_sub: "Please pay first and enter your Transaction Reference number below.",
+    lbl_ref: "Transaction Reference Number (Ref No):", btn_submit_pay: "Submit Reference",
+    plist_title: "Players List", join_game: "Please register in the Lobby first to view cards!",
+    nv_lobby: "Lobby", nv_game: "My Card", nv_payment: "Payment", nv_players: "Players"
+  }
+};
+
+const RULES_DATA = {
+  am: [
+    "1. በሎቢው በመመዝገብ የመረጡትን የባንክ አማራጭ ተጠቅመው 50 ብር ይክፈሉ።",
+    "2. የክፍያ ማረጋገጫ ቁጥርዎን (Ref No) ሲያስገቡ በራስ-ሰር የቢንጎ ካርድ ይሰጥዎታል።",
+    "3. አስተዳዳሪው ቁጥሮችን በየተራ ሲወጣ፣ በካርድዎ ላይ ያሉትን ቁጥሮች በመንካት ያደምቁ።",
+    "4. በአግድም፣ በቁመት ወይም በሰያፍ 5 ቁጥሮችን ቀድሞ የሞላ \"BINGO\" በመጫን አሸናፊ ይሆናል!"
+  ],
+  en: [
+    "1. Register in the Lobby and pay 50 Birr using your preferred banking method.",
+    "2. Enter your Payment Reference (Ref No) to instantly receive your Bingo Card.",
+    "3. As the admin draws numbers, click on matching numbers on your card to mark them.",
+    "4. Complete 5 numbers horizontally, vertically, or diagonally and hit \"BINGO\" to win!"
+  ]
+};
+
+const SAFETY_DATA = {
+  am: [
+    "• ጨዋታውን ለመዝናኛ ብቻ ይጫወቱት፤ ከሚችሉት በላይ ገንዘብ መድበው አይጫወቱ።",
+    "• በማንኛውም ሰዓት የቴክኒክ ችግር ካጋጠመዎት ለአስተዳዳሪው ያሳውቁ።"
+  ],
+  en: [
+    "• Play responsibly and purely for entertainment. Never spend more than you can afford.",
+    "• If you encounter any technical issues, notify the administrator immediately."
+  ]
+};
+
+function $(id){ return document.getElementById(id); }
+function t(key){ return LABELS[ST.lang][key] || key; }
+
+function toggleAdminLoginField() {
+  ST.isAdminMode = !ST.isAdminMode;
+  if(ST.isAdminMode) {
+    $('admin-pass-container').style.display = 'block';
+    $('reg-name').value = "Yismaw Admin";
+    $('btn-register').textContent = ST.lang === 'am' ? "እንደ አስተዳዳሪ ግባ" : "Login as Admin";
+  } else {
+    $('admin-pass-container').style.display = 'none';
+    $('reg-name').value = "";
+    $('btn-register').textContent = ST.lang === 'am' ? "ለመመዝገብ ይጫኑ" : "Register Now";
+  }
+}
+
+function toggleLang(){
+  ST.lang = ST.lang === 'am' ? 'en' : 'am';
+  $('lang-btn').textContent = ST.lang === 'am' ? 'EN' : 'አማ';
+  
+  $('t-welcome').textContent = t('welcome');
+  $('t-subtitle').textContent = t('subtitle');
+  $('t-rules-title').textContent = t('rules_title');
+  $('t-safety-title').textContent = t('safety_title');
+  $('t-active-p').textContent = t('active_p');
+  $('t-called-n').textContent = t('called_n');
+  $('t-grand-prize').textContent = t('grand_prize');
+  $('t-enter-details').textContent = t('enter_details');
+  if(!ST.isAdminMode) $('btn-register').textContent = t('btn_reg');
+  $('t-pay-title').textContent = t('pay_title');
+  $('t-pay-sub').textContent = t('pay_sub');
+  $('t-lbl-ref').textContent = t('lbl_ref');
+  $('btn-submit-pay').textContent = t('btn_submit_pay');
+  $('t-plist-title').textContent = t('plist_title');
+  
+  $('nv-lobby').querySelector('span').textContent = t('nv-lobby');
+  $('nv-game').querySelector('span').textContent = t('nv-game');
+  $('nv-payment').querySelector('span').textContent = t('nv-payment');
+  $('nv-players').querySelector('span').textContent = t('nv-players');
+
+  $('rules-box').innerHTML = RULES_DATA[ST.lang].map(r => `<li>${r}</li>`).join('');
+  $('safety-box').innerHTML = SAFETY_DATA[ST.lang].map(s => `<li>${s}</li>`).join('');
+  
+  renderMyCards();
+}
+
+function prize(){
+  const activeCount = ST.players.reduce((sum, p) => sum + (p.cardsCount || 0), 0);
+  return activeCount * ST.entryFee * (ST.prizePct/100);
+}
+
+function joinGame(){
+  const name = $('reg-name').value.trim();
+  if(!name){ alert(ST.lang==='am'?'እባክዎ ስም ያስገቡ':'Please enter your name'); return; }
+  
+  if(ST.isAdminMode || name.toLowerCase() === 'yismaw admin') {
+    const passInput = $('admin-password').value;
+    if(passInput !== ST.adminPassword) {
+      alert(ST.lang === 'am' ? 'የተሳሳተ የአስተዳዳሪ ይለፍ ቃል ነው!' : 'Incorrect Admin Password!');
+      return;
+    }
+    ST.player = { id: 'admin_' + Date.now(), name, status: 'active', role: 'admin', cardsCount: 0 };
+    $('nv-admin').style.display = 'flex';
+    alert(ST.lang === 'am' ? 'እንደ አስተዳዳሪ ገብተዋል!' : 'Logged in as Admin!');
+    $('join-card').innerHTML = `<div style="text-align:center;color:var(--eth-green);font-weight:bold;padding:10px;">✓ Admin Logged In</div>`;
+    showPage('admin', $('nv-admin'));
+    mockSync();
+    return;
+  }
+  
+  ST.player = { id: 'p_' + Date.now(), name, status: 'waiting', role: 'player', cardsCount: 0 };
+  ST.players.push(ST.player);
+  
+  $('join-card').innerHTML = `<div style="text-align:center;color:var(--eth-green);font-weight:bold;padding:10px;">
+    ✓ ${ST.lang==='am'?'በተሳካ ሁኔታ ተመዝግበዋል! ቀጣዩን ደረጃ ይከተሉ':'Registered Successfully! Proceed to payment.'}
+  </div>`;
+  
+  mockSync();
+  showPage('payment', $('nv-payment'));
+}
+
+function submitPayment(){
+  if(!ST.player){ alert(ST.lang==='am'?'እባክዎ መጀመሪያ ሎቢ ውስጥ ይመዝገቡ!':'Please register in Lobby first!'); return; }
+  const refVal = $('pay-ref-input').value.trim();
+  if(!refVal){ alert(ST.lang==='am'?'እባክዎ የደረሰኝ ቁጥር ያስገቡ':'Please enter Reference Number'); return; }
+  
+  ST.player.status = 'pending';
+  ST.player.ref = refVal;
+  
+  alert(ST.lang==='am'?'የክፍያ ማረጋገጫዎ ለአስተዳዳሪ ተልኳል! ለአፍታ ይጠብቁ።':'Payment reference submitted! Please wait for approval.');
+  mockSync();
+  showPage('lobby', $('nv-lobby'));
+}
+
+function copyTxt(text){
+  navigator.clipboard.writeText(text);
+  alert(ST.lang==='am'?'አካውንቱ考ፒ ተደርጓል!':'Account copied!');
+}
+
+function generateRandomCard(){
+  let nums = [];
+  while(nums.length < 25){
+    let r = Math.floor(Math.random() * 75) + 1;
+    if(!nums.includes(r)) nums.push(r);
+  }
+  nums[12] = 'FREE'; 
+  return nums;
+}
+
+function approvePlayer(pid){
+  const p = ST.players.find(x=>x.id === pid);
+  if(p){
+    const countInput = parseInt($(`count-${pid}`).value) || 1;
+    
+    if(countInput < 1 || countInput > ST.maxCartela) {
+      alert(ST.lang === 'am' ? `የካርቴላ መጠን ከ1 እስከ ${ST.maxCartela} መሆን አለበት!` : `Card count must be between 1 and ${ST.maxCartela}!`);
+      return;
+    }
+
+    p.status = 'active';
+    p.cardsCount = countInput;
+    
+    if(p.id === ST.player.id){
+      ST.player.status = 'active';
+      ST.player.cardsCount = countInput;
+      ST.myCards = [];
+      for(let i=0; i<countInput; i++) {
+        ST.myCards.push(generateRandomCard());
+      }
+    }
+    mockSync();
+  }
+}
+
+function drawNumber(){
+  if(ST.calledNums.length >= 75) {
+    if(ST.autoInterval) toggleAutoDraw();
+    alert('ሁሉም ቁጥሮች ወጥተዋል!');
+    return;
+  }
+  let r;
+  do { r = Math.floor(Math.random() * 75) + 1; } while(ST.calledNums.includes(r));
+  ST.calledNums.push(r);
+  
+  let letter = (r<=15?'B':r<=30?'I':r<=45?'N':r<=60?'G':'O');
+  $('adm-num').textContent = `${letter}-${r}`;
+  
+  // ⛔ SPEAK NUMBER (CALL VOICE CODE) REMOVED COMPLETELY FROM HERE
+  mockSync();
+}
+
+function toggleAutoDraw() {
+  if (ST.autoInterval) {
+    clearInterval(ST.autoInterval);
+    ST.autoInterval = null;
+    $('auto-btn').textContent = ST.lang === 'am' ? 'አውቶማቲክ ጥሪ ጀምር (Auto Draw)' : 'Start Auto Draw';
+    $('auto-btn').style.background = "var(--gold)";
+  } else {
+    drawNumber(); 
+    ST.autoInterval = setInterval(drawNumber, 4500); 
+    $('auto-btn').textContent = ST.lang === 'am' ? 'አውቶማቲክ ጥሪ አቁም (Stop Auto)' : 'Stop Auto Draw';
+    $('auto-btn').style.background = "var(--eth-red)";
+    $('auto-btn').style.color = "white";
+  }
+}
+
+function resetGame(){
+  if(ST.autoInterval) toggleAutoDraw();
+  ST.calledNums = [];
+  ST.players = ST.players.map(p => { p.status='waiting'; p.cardsCount = 0; delete p.ref; return p; });
+  ST.myCards = [];
+  if(ST.player && ST.player.role !== 'admin') { ST.player.status = 'waiting'; ST.player.cardsCount = 0; }
+  $('adm-num').textContent = '--';
+  mockSync();
+  alert('ጨዋታው በሙሉ ተደልዟል!');
+}
+
+function renderBanks(){
+  $('banks-list').innerHTML = ST.banks.map(b => `
+    <div class="b-card ${b.cls}">
+      <div class="b-header">
+        <span class="b-logo ${b.logoCls}">${b.name}</span>
+        <button class="copy-b" onclick="copyTxt('${b.acc}')">Copy</button>
+      </div>
+      <div style="font-size:1.3rem;font-weight:bold;margin-bottom:4px;letter-spacing:1px;text-shadow: 0 0 5px rgba(255,255,255,0.3);">${b.acc}</div>
+      <div style="font-size:0.85rem;color:rgba(255,255,255,0.8)">የአካውንት ስም: ${b.holder}</div>
+    </div>
+  `).join('');
+}
+
+function renderCard(card, cardIdx){
+  return `
+    <div class="card" style="margin-bottom: 20px;">
+      <h3 style="text-align:center;color:var(--eth-yellow);margin-bottom:10px;">ካርድ #${cardIdx+1}</h3>
+      <div class="grid5">
+        ${card.map((n,i) => {
+          const isMarked = n==='FREE' || ST.calledNums.includes(n);
+          const cls = n==='FREE' ? 'cell free' : (isMarked ? 'cell marked' : 'cell');
+          return `<div class="${cls}" onclick="this.classList.toggle('marked')">${n}</div>`;
+        }).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function renderPlayers(){
+  $('players-list').innerHTML = ST.players.map(p => `
+    <div class="p-row">
+      <span><b>${p.name}</b> ${p.id===ST.player?.id?'(አንተ)':''} (${p.cardsCount || 0} ካርድ)</span>
+      <span class="p-badge ${p.status}">${p.status}</span>
+    </div>
+  `).join('');
+}
+
+function renderAdminPage(){
+  const pend = ST.players.filter(p => p.status === 'pending');
+  $('admin-p-list').innerHTML = pend.length ? pend.map(p => `
+    <div class="p-row" style="flex-direction: column; align-items: flex-start; gap: 8px;">
+      <div style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+        <div><b>${p.name}</b></div>
+        <div style="font-size:0.85rem;color:var(--eth-yellow)">Ref: ${p.ref||''}</div>
+      </div>
+      <div style="width: 100%; display: flex; gap: 10px; align-items: center;">
+        <input type="number" id="count-${p.id}" class="input-f" value="1" min="1" max="${ST.maxCartela}" style="margin-top:0; width: 90px; padding: 8px; text-align: center;" placeholder="ብዛት"/>
+        <button class="copy-b" style="background:var(--eth-green);color:black;font-weight:bold;flex: 1; padding: 10px;" onclick="approvePlayer('${p.id}')">ፍቀድ (Approve)</button>
+      </div>
+    </div>
+  `).join('') : '<div style="color:rgba(255,255,255,0.4);text-align:center;">ማረጋገጫ የሚጠብቅ ተጫዋች የለም።</div>';
+}
+
+function mockSync(){
+  renderLobbyStats();
+  if($('pg-game').classList.contains('active')) renderMyCards();
+  if($('pg-players').classList.contains('active')) renderPlayers();
+  if($('pg-admin').classList.contains('active')) renderAdminPage();
+}
+
+function renderLobbyStats(){
+  const act = ST.players.reduce((sum, p) => sum + (p.status==='active' ? p.cardsCount : 0), 0);
+  const p=prize();
+  $('s-players').textContent = ST.players.filter(x => x.status === 'active').length + ` (${act} ካርድ)`;
+  $('s-called').textContent = ST.calledNums.length;
+  $('prize-display').textContent = `${p.toLocaleString()} ብር`;
+  $('prize-sub').textContent = `${act} x ${ST.entryFee} x ${ST.prizePct}%`;
+}
+
+function renderMyCards(){
+  const el = $('mycards');
+  if(!ST.player || !ST.myCards.length){
+    el.innerHTML = `<div class="card"><div style="text-align:center;color:rgba(255,255,255,0.35);padding:24px;\">${t('join_game')}</div></div>`;
+    return;
+  }
+  el.innerHTML = ST.myCards.map((c,i)=>renderCard(c,i)).join('');
+}
+
+function showPage(name, btn){
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tb').forEach(b=>b.classList.remove('active'));
+  $('pg-'+name).classList.add('active');
+  if(btn instanceof Element) btn.classList.add('active');
+  
+  if(name==='lobby') renderLobbyStats();
+  else if(name==='game') renderMyCards();
+  else if(name==='payment') renderBanks();
+  else if(name==='players') renderPlayers();
+  else if(name==='admin') renderAdminPage();
+}
+
+window.onload = function() {
+  showPage('lobby', $('nv-lobby'));
+};
+</script>
+</body>
+</html>
