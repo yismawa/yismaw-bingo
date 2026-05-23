@@ -5,896 +5,624 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>🎱 ይስማዉ ቢንጎ</title>
 <style>
-:root{
-  --gold:#FFD700;--green:#1a7a4a;--danger:#e74c3c;
-  --blue:#3498db;--purple:#9b59b6;--radius:16px;
+:root {
+  --gold: #FFD700;
+  --radius: 16px;
+  --eth-green: #00FF66;
+  --eth-yellow: #FFFF00;
+  --eth-red: #FF0033;
+  --dark-bg: #050b0d;
 }
-*{box-sizing:border-box;margin:0;padding:0;}
-body{
-  font-family:'Segoe UI',Arial,sans-serif;
-  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-  min-height:100vh;color:white;
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: linear-gradient(135deg, #020608, #091920, #112530);
+  min-height: 100vh;
+  color: white;
+  overflow-x: hidden;
+  position: relative;
 }
 
-/* BIG DISPLAY BANNER FOR LOBBY & WELCOME */
 .big-welcome-banner {
-  background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(243, 156, 18, 0.2));
-  border: 2px solid var(--gold);
+  background: rgba(0, 0, 0, 0.6);
+  border: 3px solid var(--eth-yellow);
   border-radius: var(--radius);
-  padding: 24px 16px;
+  padding: 30px 16px;
   text-align: center;
-  margin-bottom: 20px;
-  box-shadow: 0 8px 32px rgba(255, 215, 0, 0.15);
+  margin-bottom: 25px;
+  position: relative;
+  overflow: hidden;
+  animation: neonBorderGlow 4s infinite alternate;
 }
-.big-welcome-title {
-  font-size: 1.65rem;
-  font-weight: 900;
-  color: #fff;
-  line-height: 1.5;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-  margin-bottom: 12px;
+
+@keyframes neonBorderGlow {
+  0% { border-color: var(--eth-green); box-shadow: 0 0 25px var(--eth-green), inset 0 0 15px rgba(0,255,102,0.3); }
+  50% { border-color: var(--eth-yellow); box-shadow: 0 0 25px var(--eth-yellow), inset 0 0 15px rgba(255,255,0,0.3); }
+  100% { border-color: var(--eth-red); box-shadow: 0 0 25px var(--eth-red), inset 0 0 15px rgba(255,0,51,0.3); }
 }
-.big-welcome-highlight {
-  color: var(--gold);
+
+.animated-title {
+  font-size: 2.4rem;
   font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  background: linear-gradient(to right, var(--eth-green), var(--eth-yellow), var(--eth-red), var(--eth-green));
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shineText 3s linear infinite;
 }
-.good-luck-text {
-  font-size: 1.8rem;
-  font-weight: 900;
-  color: var(--gold);
+
+@keyframes shineText {
+  0% { background-position: 0% center; }
+  100% { background-position: 300% center; }
+}
+
+.sub-welcome-text {
+  font-size: 1.1rem;
+  color: #ffffff;
   margin-top: 10px;
-  display: inline-block;
-  animation: pulse-glow 1.5s infinite ease-in-out;
-}
-@keyframes pulse-glow {
-  0% { transform: scale(1); text-shadow: 0 0 5px rgba(255,215,0,0.5); }
-  50% { transform: scale(1.06); text-shadow: 0 0 20px rgba(255,215,0,0.9); }
-  100% { transform: scale(1); text-shadow: 0 0 5px rgba(255,215,0,0.5); }
+  text-shadow: 0 0 8px rgba(255,255,255,0.6);
 }
 
-/* WELCOME */
-#wo{
-  position:fixed;inset:0;
-  background:linear-gradient(160deg,#0f2027,#1a3a2a,#0f2027);
-  z-index:9999;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  padding:20px;overflow-y:auto;
+.rules-list, .safety-list {
+  text-align: left; padding-left: 20px; margin-top: 10px; font-size: 0.95rem; line-height: 1.5;
 }
-.wlogo{font-size:3.5rem;margin-bottom:6px;}
-.wtitle{
-  font-size:1.7rem;font-weight:900;color:var(--gold);
-  text-align:center;margin-bottom:4px;
-}
-.wsub{font-size:0.9rem;color:rgba(255,255,255,0.6);text-align:center;margin-bottom:16px;}
-.wcard{
-  background:rgba(255,255,255,0.07);
-  border:1px solid rgba(255,215,0,0.3);
-  border-radius:14px;padding:16px;
-  width:100%;max-width:460px;margin-bottom:12px;
-}
-.wctitle{
-  color:var(--gold);font-size:0.95rem;font-weight:800;
-  margin-bottom:10px;padding-bottom:8px;
-  border-bottom:1px solid rgba(255,215,0,0.2);
-}
-.ri{
-  display:flex;align-items:flex-start;gap:8px;
-  padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.05);
-  font-size:0.82rem;line-height:1.5;color:rgba(255,255,255,0.85);
-}
-.ri:last-child{border-bottom:none;}
-.rn{
-  background:linear-gradient(135deg,var(--gold),#f39c12);
-  color:#000;font-weight:900;width:22px;height:22px;
-  border-radius:50%;display:flex;align-items:center;
-  justify-content:center;font-size:0.7rem;flex-shrink:0;margin-top:2px;
-}
-.wt{
-  display:flex;align-items:center;gap:6px;padding:5px 8px;
-  background:rgba(255,215,0,0.08);border-radius:8px;margin-bottom:5px;font-size:0.8rem;
-}
-.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-.pbox{
-  background:rgba(255,215,0,0.1);border:1px solid rgba(255,215,0,0.3);
-  border-radius:10px;padding:10px;text-align:center;
-}
-.pamt{font-size:1.2rem;font-weight:900;color:var(--gold);}
-.plbl{font-size:0.72rem;color:rgba(255,255,255,0.6);}
-.sbtn{
-  background:linear-gradient(135deg,#f5a623,#e67e22);
-  color:#000;font-weight:900;font-size:1.05rem;
-  border:none;border-radius:12px;padding:15px;width:100%;
-  cursor:pointer;display:flex;align-items:center;
-  justify-content:center;gap:8px;
-  box-shadow:0 6px 20px rgba(245,166,35,0.4);
-}
-.bletters{display:flex;gap:5px;justify-content:center;margin:8px 0 14px;}
-.bl{
-  width:34px;height:34px;border-radius:8px;
-  font-weight:900;font-size:0.95rem;
-  display:flex;align-items:center;justify-content:center;
+.rules-list li { margin-bottom: 6px; color: #e0e0e0; }
+.safety-card {
+  border-left: 5px solid var(--eth-red) !important;
+  background: rgba(255, 0, 51, 0.05) !important;
 }
 
-/* TOPBAR */
-.topbar{
-  background:rgba(0,0,0,0.4);
-  padding:11px 14px;display:flex;align-items:center;
-  justify-content:space-between;position:sticky;top:0;z-index:100;
-  border-bottom:1px solid rgba(255,215,0,0.3);
+.action-btn {
+  background: linear-gradient(90deg, #00FF66, #00cc52);
+  color: black; border: none; padding: 15px 28px;
+  font-size: 1.1rem; font-weight: bold; border-radius: 30px;
+  cursor: pointer; width: 100%; margin-top: 15px;
+  box-shadow: 0 5px 20px rgba(0,255,102,0.4);
+  transition: all 0.3s ease;
 }
-.topbar h1{font-size:1rem;color:var(--gold);}
-.lsel{
-  background:rgba(255,255,255,0.1);color:white;
-  border:1px solid rgba(255,215,0,0.4);
-  padding:4px 8px;border-radius:8px;font-size:0.75rem;cursor:pointer;
-}
-.lsel option{color:#000;background:#fff;}
-
-/* TABS */
-.tabs{
-  display:flex;background:rgba(0,0,0,0.3);
-  overflow-x:auto;border-bottom:1px solid rgba(255,215,0,0.2);
-}
-.tb{
-  flex:1;min-width:62px;padding:9px 4px;border:none;background:none;
-  color:rgba(255,255,255,0.6);cursor:pointer;font-size:0.67rem;
-  display:flex;flex-direction:column;align-items:center;gap:2px;
-  border-bottom:3px solid transparent;transition:color 0.15s,border-color 0.15s;
-}
-.tb .ic{font-size:1.1rem;}
-.tb.active{color:var(--gold);border-bottom-color:var(--gold);font-weight:700;}
-
-/* PAGES */
-.pg{display:none;padding:12px;max-width:620px;margin:0 auto;}
-.pg.active{display:block;}
-
-/* CARD */
-.card{
-  background:rgba(255,255,255,0.07);
-  border:1px solid rgba(255,255,255,0.1);
-  border-radius:var(--radius);padding:14px;margin-bottom:12px;
-}
-.ct{color:var(--gold);font-size:0.95rem;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:7px;}
-
-/* FORM */
-.fg{margin-bottom:10px;}
-.fg label{display:block;font-size:0.78rem;color:rgba(255,255,255,0.7);margin-bottom:4px;}
-.fg input,.fg select{
-  width:100%;padding:9px 12px;
-  background:rgba(255,255,255,0.1);
-  border:1.5px solid rgba(255,255,255,0.2);
-  border-radius:9px;color:white;font-size:0.88rem;
-}
-.fg input::placeholder{color:rgba(255,255,255,0.4);}
-.fg input:focus,.fg select:focus{outline:none;border-color:var(--gold);}
-.fg select option{color:#000;background:#fff;}
-
-/* BUTTONS */
-.btn{
-  padding:11px 18px;border:none;border-radius:9px;
-  cursor:pointer;font-size:0.88rem;font-weight:700;
-  display:inline-flex;align-items:center;gap:5px;
-}
-.bg{background:linear-gradient(135deg,#f5a623,#f39c12);color:#000;width:100%;justify-content:center;}
-.bgr{background:linear-gradient(135deg,#1a7a4a,#2ecc71);color:#fff;width:100%;justify-content:center;}
-.br{background:linear-gradient(135deg,#e74c3c,#c0392b);color:#fff;}
-.bb{background:linear-gradient(135deg,#3498db,#2980b9);color:#fff;width:100%;justify-content:center;}
-.bp{background:linear-gradient(135deg,#9b59b6,#8e44ad);color:#fff;width:100%;justify-content:center;}
-.bsm{padding:6px 11px;font-size:0.73rem;width:auto;}
-
-/* BINGO CARD */
-.bh{display:grid;grid-template-columns:repeat(5,1fr);gap:3px;margin-bottom:3px;}
-.bcl{
-  background:linear-gradient(135deg,var(--gold),#f39c12);
-  color:#000;font-weight:900;font-size:1rem;
-  text-align:center;padding:8px 0;border-radius:7px;
-}
-.bg2{display:grid;grid-template-columns:repeat(5,1fr);gap:3px;}
-.bc{
-  aspect-ratio:1;background:rgba(255,255,255,0.08);
-  border:1.5px solid rgba(255,255,255,0.15);border-radius:9px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:0.95rem;font-weight:700;cursor:pointer;
-}
-.bc:active{transform:scale(0.95);}
-.bc.mk{background:linear-gradient(135deg,#f5a623,#f39c12);color:#000;border-color:var(--gold);}
-.bc.fr{background:linear-gradient(135deg,#1a7a4a,#2ecc71);color:#fff;font-size:0.6rem;border-color:#2ecc71;}
-.bc.cl{background:rgba(52,152,219,0.25);border-color:var(--blue);}
-.bc.wc{background:linear-gradient(135deg,#FFD700,#FF6B6B)!important;animation:pu 0.5s infinite alternate;}
-@keyframes pu{from{transform:scale(1.05);}to{transform:scale(1.15);}}
-
-/* CALLER */
-.cs{
-  text-align:center;padding:16px;
-  background:rgba(255,215,0,0.08);
-  border-radius:var(--radius);
-  border:1px solid rgba(255,215,0,0.25);margin-bottom:12px;
-}
-.cball{
-  width:80px;height:80px;border-radius:50%;
-  background:linear-gradient(135deg,var(--gold),#f39c12);
-  color:#000;font-size:1.8rem;font-weight:900;
-  display:flex;align-items:center;justify-content:center;
-  margin:0 auto 8px;box-shadow:0 0 25px rgba(255,215,0,0.5);
-}
-.cltr{font-size:0.9rem;color:var(--gold);margin-bottom:3px;}
-.cnums{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;margin-top:8px;max-height:110px;overflow-y:auto;}
-.cc{padding:3px 8px;border-radius:16px;font-size:0.72rem;font-weight:600;}
-.cc.b{border:1px solid #e74c3c;background:rgba(231,76,60,0.2);}
-.cc.i{border:1px solid #e67e22;background:rgba(230,126,34,0.2);}
-.cc.n{border:1px solid #2ecc71;background:rgba(46,204,113,0.2);}
-.cc.g{border:1px solid #3498db;background:rgba(52,152,219,0.2);}
-.cc.o{border:1px solid #9b59b6;background:rgba(155,89,182,0.2);}
-
-/* STATS */
-.sg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
-.sc{background:rgba(255,255,255,0.07);border-radius:11px;padding:12px;text-align:center;border:1px solid rgba(255,255,255,0.1);}
-.sn{font-size:1.4rem;font-weight:800;color:var(--gold);}
-.sl{font-size:0.68rem;color:rgba(255,255,255,0.5);margin-top:3px;}
-
-/* PRIZE */
-.pp{
-  text-align:center;padding:16px;
-  background:linear-gradient(135deg,rgba(155,89,182,0.15),rgba(52,152,219,0.15));
-  border-radius:var(--radius);border:1px solid rgba(155,89,182,0.35);margin-bottom:12px;
-}
-.pa{font-size:2.2rem;font-weight:900;color:var(--gold);}
-
-/* PLAYER ITEM */
-.pi{display:flex;align-items:center;gap:9px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.07);}
-.pi:last-child{border-bottom:none;}
-.pav{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#f39c12);color:#000;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.pif{flex:1;}
-.pn{font-weight:600;font-size:0.88rem;}
-.ps{font-size:0.7rem;color:rgba(255,255,255,0.5);}
-.pst{padding:3px 9px;border-radius:16px;font-size:0.7rem;font-weight:600;}
-.sa{background:rgba(46,204,113,0.2);color:#2ecc71;border:1px solid #2ecc71;}
-.sw{background:rgba(255,215,0,0.2);color:var(--gold);border:1px solid var(--gold);}
-.swt{background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.5);}
-
-/* BANK */
-.bi{display:flex;align-items:center;gap:9px;padding:9px;background:rgba(255,255,255,0.05);border-radius:9px;margin-bottom:7px;border:1px solid rgba(255,255,255,0.1);cursor:pointer;}
-.bi.sel{background:rgba(255,215,0,0.1);border-color:var(--gold);}
-.bic{font-size:1.4rem;}
-.bnm{font-size:0.83rem;font-weight:600;}
-.btp{font-size:0.7rem;color:rgba(255,255,255,0.5);word-break:break-all;}
-
-/* WINNER */
-.wb{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:9999;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:20px;}
-.wb.show{display:flex;}
-.wtr{font-size:4.5rem;}
-.wti{font-size:1.8rem;font-weight:900;color:var(--gold);margin:8px 0;}
-.wnb{font-size:1.4rem;font-weight:700;margin-bottom:5px;}
-.rc{font-size:2rem;font-weight:900;color:var(--gold);text-align:center;letter-spacing:7px;}
-
-/* TOAST */
-.toast{
-  position:fixed;bottom:75px;left:50%;
-  transform:translateX(-50%) translateY(20px);
-  background:rgba(0,0,0,0.9);color:#fff;
-  padding:10px 18px;border-radius:18px;font-size:0.82rem;
-  opacity:0;transition:all 0.25s;z-index:9998;white-space:nowrap;
-  border:1px solid rgba(255,215,0,0.3);pointer-events:none;
-}
-.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
-.toast.gold{border-color:var(--gold);background:rgba(245,166,35,0.2);}
-.toast.red{border-color:var(--danger);background:rgba(231,76,60,0.2);}
-
-/* WARNING CALLOUT */
-.w-alert{
-  background:rgba(231,76,60,0.1);
-  border:1px solid rgba(231,76,60,0.4);
-  border-radius:12px;padding:12px;margin-bottom:12px;
-}
-.w-alert-title{
-  color:#ff6b6b;font-size:0.88rem;font-weight:700;
-  margin-bottom:5px;display:flex;align-items:center;gap:6px;
-}
-.w-alert-text{
-  font-size:0.78rem;color:rgba(255,255,255,0.8);line-height:1.5;
+.action-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0,255,102,0.7);
 }
 
-::-webkit-scrollbar{width:3px;height:3px;}
-::-webkit-scrollbar-thumb{background:rgba(255,215,0,0.35);border-radius:2px;}
-@media(max-width:360px){.bc{font-size:0.8rem;}.cball{width:66px;height:66px;font-size:1.5rem;}.tb{font-size:0.6rem;}}
+header {
+  background: rgba(5,11,13,0.9); backdrop-filter: blur(10px);
+  padding: 16px; display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 2px solid var(--eth-yellow); position: sticky; top: 0; z-index: 100;
+}
+.logo-title {
+  font-size: 1.6rem; font-weight: 900;
+  background: linear-gradient(to right, var(--eth-green), var(--eth-yellow), var(--eth-red));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+main { padding: 16px; padding-bottom: 90px; max-width: 500px; margin: 0 auto; }
+.card {
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--radius); padding: 20px; margin-bottom: 16px;
+  backdrop-filter: blur(10px); box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+.stat-g { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+.stat-box { background: rgba(255,255,255,0.04); border-radius: 12px; padding: 12px; text-align: center; }
+.stat-v { font-size: 1.6rem; font-weight: 800; color: var(--gold); margin-top: 4px; }
+
+.prize-banner {
+  background: linear-gradient(135deg, rgba(0,255,102,0.1), rgba(255,255,0,0.1));
+  border: 2px dashed var(--eth-yellow); text-align: center; padding: 16px; border-radius: 12px; margin-bottom: 20px;
+}
+.input-f {
+  width: 100%; padding: 14px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 10px; color: white; font-size: 1rem; margin-top: 8px; outline: none;
+}
+.input-f:focus { border-color: var(--eth-green); box-shadow: 0 0 10px var(--eth-green); }
+
+.b-card { border-radius: 14px; padding: 18px; margin-top: 14px; border: 2px solid rgba(255,255,255,0.1); box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+.b-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.b-logo { font-size: 1.1rem; font-weight: bold; padding: 6px 14px; border-radius: 6px; text-transform: uppercase; }
+
+.cbe-card { background: linear-gradient(135deg, #4A0E4E, #2A082C); border-color: #9b59b6; box-shadow: 0 0 15px rgba(155,89,182,0.4); }
+.cbe-logo { background: #8E44AD; color: white; text-shadow: 0 0 5px #fff; }
+.addis-card { background: linear-gradient(135deg, #003366, #001a33); border-color: #FFFF00; box-shadow: 0 0 15px rgba(0,51,102,0.5); }
+.addis-logo { background: #0055a5; color: #FFFF00; border: 1px solid #FFFF00; }
+.boa-card { background: linear-gradient(135deg, #A67C1E, #59420F); border-color: #FFD700; box-shadow: 0 0 15px rgba(255,215,0,0.4); }
+.boa-logo { background: #FFD700; color: black; font-weight: 900; }
+.tele-card { background: linear-gradient(135deg, #0066cc, #003366); border-color: #00FF66; box-shadow: 0 0 15px rgba(0,102,204,0.4); }
+.tele-logo { background: #0088ff; color: white; }
+
+.copy-b { background: rgba(255,255,255,0.25); border: none; color: white; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+.copy-b:hover { background: #ffffff; color: black; }
+
+.grid5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-top: 10px; }
+.cell {
+  aspect-ratio: 1; background: rgba(255,255,255,0.08); border-radius: 8px;
+  display: flex; align-items: center; justify-content: center; font-size: 1.3rem; font-weight: bold;
+  cursor: pointer; transition: 0.2s; border: 1px solid rgba(255,255,255,0.05);
+}
+.cell.marked { background: var(--eth-green); color: black; box-shadow: 0 0 15px var(--eth-green); }
+.cell.free { background: var(--eth-red); color: white; font-size: 0.8rem; box-shadow: 0 0 10px var(--eth-red); }
+
+.p-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.p-badge { padding: 4px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: bold; }
+.p-badge.active { background: rgba(0,255,102,0.2); color: var(--eth-green); }
+.p-badge.waiting { background: rgba(255,255,0,0.2); color: var(--eth-yellow); }
+.p-badge.pending { background: rgba(0,136,255,0.2); color: #0088ff; }
+
+.adm-ctrl { display: flex; flex-direction: column; gap: 10px; }
+.num-disp { font-size: 4rem; font-weight: 900; text-align: center; color: var(--eth-yellow); text-shadow: 0 0 20px var(--eth-yellow); margin: 15px 0; }
+
+nav {
+  position: fixed; bottom: 0; left: 0; width: 100%; background: #050b13;
+  display: flex; border-top: 2px solid rgba(255,255,0,0.2); z-index: 100;
+}
+.tb { flex: 1; border: none; background: transparent; color: rgba(255,255,255,0.5); padding: 14px 6px; font-size: 0.85rem; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.tb.active { color: var(--eth-yellow); font-weight: bold; text-shadow: 0 0 8px var(--eth-yellow); }
+.tb svg { width: 22px; height: 22px; fill: currentColor; }
+.pg { display: none; }
+.pg.active { display: block; }
 </style>
 </head>
 <body>
 
-<!-- WELCOME -->
-<div id="wo">
-  <div class="wlogo">🎱</div>
-  <div class="wtitle">ይስማዉ ቢንጎ</div>
-  <div class="wsub">እንኳን ደህና መጡ! — Welcome!</div>
-  
-  <!-- NEW BIG WELCOME DISPLAY IN WELCOME SCREEN -->
-  <div class="big-welcome-banner" style="max-width:460px; width:100%;">
-    <div class="big-welcome-title">
-      እንኳን ወደ <span class="big-welcome-highlight">ይስማዉ ቢንጎ</span> በሰላም መጡ! በቢንጎአችን በሚዝናኑበት ሰዓት ያልታሰበ ሲሳይ ከቤትዎ እንዲገባ መልካም ምኞታችን ነው።
+<header>
+  <div class="logo-title">🎱 ይስማዉ ቢንጎ</div>
+  <div id="lang-btn" style="cursor:pointer; font-size:0.9rem; background:rgba(255,255,255,0.15); padding:6px 12px; border-radius:20px; font-weight:bold;" onclick="toggleLang()">EN</div>
+</header>
+
+<main>
+  <div id="pg-lobby" class="pg active">
+    <div class="big-welcome-banner">
+      <div class="animated-title" id="t-welcome">እንኳን ደህና መጡ!</div>
+      <div class="sub-welcome-text" id="t-subtitle">የኢትዮጵያ ቁጥር 1 ዲጂታል የቢንጎ ጨዋታ መድረክ</div>
     </div>
-    <div class="good-luck-text">👉መልካም እድል👏</div>
-  </div>
 
-  <div class="wcard">
-    <div class="wctitle">📖 የጨዋታ ህጎች — Game Rules</div>
-    <div class="ri"><div class="rn">1</div><div>ስምዎንና ስልክዎን ያስገቡ፣ የሚፈልጉትን ካርድ ብዛት ይምረጡ。<br><span style="color:rgba(255,255,255,0.45);font-size:0.76rem;">Enter name, phone & choose cards.</span></div></div>
-    <div class="ri"><div class="rn">2</div><div>በባንክ ወይም Mobile Money ክፍያ ያድርጉ። Admin ሲያረጋግጥ ጌሙ ይጀምራሉ።<br><span style="color:rgba(255,255,255,0.45);font-size:0.76rem;">Pay via bank/mobile. Admin verifies.</span></div></div>
-    <div class="ri"><div class="rn">3</div><div>ቁጥሮቹ ሲጠሩ ካርድዎ ላይ ምልክት ያድርጉ። <strong style="color:var(--gold);">FREE</strong> ሁሌም ምልክት አለው。<br><span style="color:rgba(255,255,255,0.45);font-size:0.76rem;">Mark numbers as called. FREE is always marked.</span></div></div>
-  </div>
+    <div class="card" id="join-card">
+      <h3 style="margin-bottom:6px;" id="t-enter-details">ለመጫወት መረጃዎን ያስገቡ</h3>
+      <input type="text" id="reg-name" class="input-f" placeholder="ሙሉ ስምዎን እዚህ ያስገቡ..."/>
+      
+      <div id="admin-pass-container" style="margin-top: 10px; display: none;">
+        <label style="font-size:0.85rem; color:var(--eth-red); font-weight: bold;">የአስተዳዳሪ ይለፍ ቃል (Password)፦</label>
+        <input type="password" id="admin-password" class="input-f" placeholder="የአስተዳዳሪ ፓስወርድ እዚህ ያስገቡ..."/>
+      </div>
 
-  <button class="sbtn" onclick="closeWelcome()">🎱 ጌሙን ጀምር — Let's Play!</button>
-  <div style="font-size:0.68rem;color:rgba(255,255,255,0.25);margin-top:12px;">ይስማዉ ቢንጎ © 2026</div>
-</div>
-
-<!-- TOPBAR -->
-<div class="topbar">
-  <h1>🎱 <span id="apptitle">ይስማዉ ቢንጎ</span></h1>
-  <select class="lsel" onchange="setLang(this.value)" id="lsel">
-    <option value="am">🇪🇹 አማርኛ</option>
-    <option value="en">🇬🇧 English</option>
-    <option value="or">🇪🇹 Oromoo</option>
-    <option value="so">🇸🇴 Somali</option>
-    <option value="ti">🇪🇹 ትግርኛ</option>
-  </select>
-</div>
-
-<!-- TABS -->
-<div class="tabs">
-  <button class="tb active" onclick="showPage('lobby',this)"><span class="ic">🏠</span><span data-k="lobby">ሎቢ</span></button>
-  <button class="tb" onclick="showPage('game',this)"><span class="ic">🎱</span><span data-k="game">ጌም</span></button>
-  <button class="tb" onclick="showPage('payment',this)"><span class="ic">💳</span><span data-k="payment">ክፍያ</span></button>
-  <button class="tb" onclick="showPage('players',this)"><span class="ic">👥</span><span data-k="players">ተጫዋቾ</span></button>
-  <button class="tb" onclick="showPage('admin',this)"><span class="ic">⚙️</span><span data-k="admin">አስተዳዳሪ</span></button>
-</div>
-
-<!-- LOBBY (DASHBOARD) -->
-<div id="pg-lobby" class="pg active">
-  
-  <!-- NEW BIG DISPLAY BANNER ON THE DASHBOARD -->
-  <div class="big-welcome-banner">
-    <div class="big-welcome-title">
-      እንኳን ወደ <span class="big-welcome-highlight">ይስማዉ ቢንጎ</span> በሰላም መጡ! በቢንጎአችን በሚዝናኑበት ሰዓት ያልታሰበ ሲሳይ ከቤትዎ እንዲገባ መልካም ምኞታችን ነው።
-    </div>
-    <div class="good-luck-text">👉መልካም እድል👏</div>
-  </div>
-
-  <div class="w-alert">
-    <div class="w-alert-title">⚠️ <span data-k="safety_title">የጥንቃቄ መልዕክት</span></div>
-    <div class="w-alert-text" data-k="safety_text"></div>
-  </div>
-
-  <div class="pp">
-    <div style="font-size:0.82rem;color:rgba(255,255,255,0.55);margin-bottom:5px;" data-k="prize_pool">የሽልማት ድምር</div>
-    <div class="pa" id="prize-display">0 ብር</div>
-    <div style="font-size:0.72rem;color:rgba(255,255,255,0.35);margin-top:3px;" id="prize-sub"></div>
-  </div>
-  
-  <div class="sg">
-    <div class="sc"><div class="sn" id="s-players">0</div><div class="sl" data-k="active_players">ንቁ ተጫዋቾ</div></div>
-    <div class="sc"><div class="sn" id="s-called">0</div><div class="sl" data-k="called_nums">የተጠሩ ቁጥሮች</div></div>
-    <div class="sc"><div class="sn" id="s-entry">50</div><div class="sl" data-k="entry_fee">የመግቢያ ዋጋ (ብር)</div></div>
-    <div class="sc"><div class="sn" id="s-winners">0</div><div class="sl" data-k="winners_today">የዛሬ አሸናፊዎች</div></div>
-  </div>
-  
-  <div class="card">
-    <div class="ct">🎮 <span data-k="join_game">ጌሙን ተቀላቀሉ</span></div>
-    <div class="fg"><label data-k="your_name">ስምዎ</label><input type="text" id="pname" placeholder="አበበ ካሳ"/></div>
-    <div class="fg"><label data-k="your_phone">ስልክ ቁጥር</label><input type="tel" id="pphone" placeholder="09XXXXXXXX"/></div>
-    <div class="fg">
-      <label data-k="card_count">የካርድ ብዛት</label>
-      <select id="ccount">
-        <option value="1">1 ካርድ — 50 ብር</option>
-        <option value="2">2 ካርዶች — 100 ብር</option>
-        <option value="3">3 ካርዶች — 150 ብር</option>
-        <option value="5">5 ካርዶች — 250 ብር</option>
-      </select>
-    </div>
-    <div class="fg"><label data-k="room_code_label">የክፍል ኮድ (ካለ)</label>
-      <input type="text" id="rcode" placeholder="XXXX" maxlength="4" style="text-transform:uppercase;letter-spacing:4px;font-size:1.1rem;text-align:center;"/>
-    </div>
-    <button class="btn bg" onclick="joinGame()" style="margin-top:5px;">🎱 <span data-k="join_btn">ጌሙን ጀምር!</span></button>
-  </div>
-</div>
-
-<!-- GAME -->
-<div id="pg-game" class="pg">
-  <div class="cs">
-    <div class="cltr" id="cltr">—</div>
-    <div class="cball" id="cball">?</div>
-    <div style="font-size:0.77rem;color:rgba(255,255,255,0.45);" data-k="last_called">መጨረሻ የተጠራ</div>
-    <div class="cnums" id="cnums"></div>
-  </div>
-  <div id="mycards"></div>
-  <div style="text-align:center;margin:12px 0;">
-    <button class="btn bg" onclick="claimBingo()" style="font-size:1.2rem;padding:15px 36px;letter-spacing:3px;">🎉 BINGO!</button>
-  </div>
-</div>
-
-<!-- PAYMENT -->
-<div id="pg-payment" class="pg">
-  <div class="card">
-    <div class="ct">💰 <span data-k="payment_title">ክፍያ ያድርጉ</span></div>
-    <div style="text-align:center;margin-bottom:12px;">
-      <div style="font-size:0.82rem;color:rgba(255,255,255,0.55);" data-k="amount_to_pay">የሚከፍሉት</div>
-      <div style="font-size:1.9rem;font-weight:800;color:var(--gold);" id="pay-total">50 ብር</div>
-    </div>
-    <div style="font-size:0.79rem;color:rgba(255,255,255,0.55);margin-bottom:8px;" data-k="select_bank">ባንክ ይምረጡ</div>
-    <div id="banks-list"></div>
-    <div id="acct-display" style="display:none;margin-top:10px;">
-      <div style="background:rgba(255,215,0,0.1);border:1px solid rgba(255,215,0,0.4);border-radius:9px;padding:12px;text-align:center;">
-        <div style="font-size:0.77rem;color:rgba(255,255,255,0.55);" data-k="send_to">ይላኩ ወደ</div>
-        <div style="font-size:1.2rem;font-weight:800;color:var(--gold);letter-spacing:1px;word-break:break-all;" id="acct-num">—</div>
-        <div style="font-size:0.77rem;color:rgba(255,255,255,0.55);" id="acct-name">—</div>
+      <button class="action-btn" onclick="joinGame()" id="btn-register">ለመመዝገብ ይጫኑ</button>
+      <div style="text-align: center; margin-top: 12px;">
+        <span style="font-size: 0.85rem; color: #aaa; cursor: pointer; text-decoration: underline;" onclick="toggleAdminLoginField()">አስተዳዳሪ ነኝ (Admin Login)</span>
       </div>
     </div>
-    <div class="fg" style="margin-top:12px;"><label data-k="tx_ref">የደረሰኝ ቁጥር / Tx Reference</label><input type="text" id="txref" placeholder="TXN123456"/></div>
-    <button class="btn bgr" onclick="submitPayment()">✅ <span data-k="confirm_pay">ክፍያ አረጋግጥ</span></button>
-  </div>
-</div>
 
-<!-- PLAYERS -->
-<div id="pg-players" class="pg">
-  <div class="card">
-    <div class="ct">🏆 <span data-k="leaderboard">ሊደርቦርድ</span></div>
-    <div id="plist"></div>
-  </div>
-</div>
+    <div class="card" style="border-left: 5px solid var(--eth-green);">
+      <h3 style="color: var(--eth-green);" id="t-rules-title">📜 የጨዋታው ህግና ደንብ</h3>
+      <ul class="rules-list" id="rules-box">
+        <li>1. በሎቢው በመመዝገብ የመረጡትን የባንክ አማራጭ ተጠቅመው 50 ብር ይክፈሉ።</li>
+        <li>2. የክፍያ ማረጋገጫ ቁጥርዎን (Ref No) ሲያስገቡ በራስ-ሰር የቢንጎ ካርድ ይሰጥዎታል።</li>
+        <li>3. አስተዳዳሪው ቁጥሮችን በየተራ ሲወጣ፣ በካርድዎ ላይ ያሉትን ቁጥሮች በመንካት ያደምቁ።</li>
+        <li>4. በአግድም፣ በቁመት ወይም በሰያፍ 5 ቁጥሮችን ቀድሞ የሞላ "BINGO" በመጫን አሸናፊ ይሆናል!</li>
+      </ul>
+    </div>
 
-<!-- ADMIN -->
-<div id="pg-admin" class="pg">
-  <div class="card" id="admin-login">
-    <div class="ct">🔐 <span data-k="admin_login">Admin ይግቡ</span></div>
-    <div class="fg"><label>PIN</label><input type="password" id="apin" placeholder="••••" maxlength="6"/></div>
-    <button class="btn bg" onclick="adminLogin()">🔑 <span data-k="login">ግቡ</span></button>
+    <div class="stat-g">
+      <div class="stat-box"><div id="t-active-p">ተጫዋቾች</div><div class="stat-v" id="s-players">0</div></div>
+      <div class="stat-box"><div id="t-called-n">የወጡ ቁጥሮች</div><div class="stat-v" id="s-called">0</div></div>
+    </div>
+
+    <div class="prize-banner">
+      <div style="font-size:0.9rem;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.7);" id="t-grand-prize">የአሸናፊው ሽልማት</div>
+      <div class="stat-v" style="font-size:2.4rem;margin-top:4px;color:var(--eth-green);" id="prize-display">0 ብር</div>
+      <div style="font-size:0.8rem;color:rgba(255,255,255,0.5);margin-top:2px;" id="prize-sub">0 x 50 x 80%</div>
+    </div>
+
+    <div class="card safety-card">
+      <h3 style="color: var(--eth-red);" id="t-safety-title">⚠️ የጥንቃቄ መልዕክት</h3>
+      <ul class="safety-list" id="safety-box">
+        <li>• ጨዋታውን ለመዝናኛ ብቻ ይጫወቱት፤ ከሚችሉት በላይ ገንዘብ መድበው አይጫወቱ።</li>
+        <li>• በማንኛውም ሰዓት የቴክኒክ ችግር ካጋጠመዎት ለአስተዳዳሪው ያሳውቁ።</li>
+      </ul>
+    </div>
   </div>
-  <div id="admin-panel" style="display:none;">
+
+  <div id="pg-game" class="pg">
+    <div id="mycards"></div>
+  </div>
+
+  <div id="pg-payment" class="pg">
     <div class="card">
-      <div class="ct">🎮 <span data-k="game_control">ጌም ቁጥጥር</span></div>
-      <div class="fg"><label data-k="entry_fee_set">የመግቢያ ዋጋ (ብር)</label><input type="number" id="a-entry" value="50" onchange="applySettings()"/></div>
-      <div class="fg"><label data-k="prize_pct">የሽልማት ፐርሰንት (%)</label><input type="number" id="a-pct" value="80" onchange="applySettings()"/></div>
-      <div class="fg">
-        <label data-k="call_speed">የጥሪ ፍጥነት</label>
-        <select id="a-speed" onchange="applySettings()">
-          <option value="3000">ፈጣን — 3 ሰ</option>
-          <option value="5000" selected>መካከለኛ — 5 ሰ</option>
-          <option value="8000">ዝግ — 8 ሰ</option>
-          <option value="0">Manual</option>
-        </select>
+      <h3 style="margin-bottom:4px;" id="t-pay-title">የመግቢያ ክፍያ መክፈያ</h3>
+      <p style="font-size:0.9rem;color:rgba(255,255,255,0.6);margin-bottom:12px;" id="t-pay-sub">እባክዎ መጀመሪያ ክፍያ በመፈፀም የደረሰኝ ቁጥሩን (Ref No) ከታች ያስገቡ።</p>
+      <div id="banks-list"></div>
+      <div style="margin-top:16px;border-top:1px solid rgba(255,255,255,0.1);padding-top:16px;">
+        <label style="font-size:0.9rem;color:var(--eth-yellow);" id="t-lbl-ref">የክፍያ ማረጋገጫ ቁጥር (Txn Ref No):</label>
+        <input type="text" id="pay-ref-input" class="input-f" placeholder="ለምሳሌ፡ FT24... ወይም BP..."/>
+        <button class="action-btn" onclick="submitPayment()" style="background:linear-gradient(90deg,#FFFF00,#ffcc00);box-shadow:0 5px 15px rgba(255,255,0,0.3);" id="btn-submit-pay">ክፍያውን አረጋግጥ</button>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;">
-        <button class="btn bgr bsm" onclick="startGame()" style="width:100%;">▶️ <span data-k="start_game">ጀምር</span></button>
-        <button class="btn br bsm" onclick="stopGame()" style="width:100%;color:#fff;">⏹️ <span data-k="stop_game">አቁም</span></button>
-        <button class="btn bb bsm" onclick="callNext()" style="width:100%;">📢 <span data-k="call_next">ቀጣይ</span></button>
-        <button class="btn bp bsm" onclick="resetGame()" style="width:100%;">🔄 <span data-k="reset">ዳግም</span></button>
-      </div>
-    </div>
-    <div class="card">
-      <div class="ct">🔑 <span data-k="room_code">የክፍል ኮድ</span></div>
-      <div class="rc" id="rc-display">—</div><br/>
-      <button class="btn bg" onclick="genRoom()">🔄 <span data-k="new_code">አዲስ ኮድ</span></button>
-    </div>
-    <div class="card">
-      <div class="ct">📊 <span data-k="game_stats">ስታቲስቲክስ</span></div>
-      <div id="astats"></div>
-    </div>
-    <div class="card">
-      <div class="ct">🏦 <span data-k="bank_settings">የባንክ ቅንብር</span></div>
-      <div id="abanks"></div>
-    </div>
-    <div class="card">
-      <div class="ct">✅ <span data-k="approve_players">ተጫዋቾ ማፅደቅ</span></div>
-      <div id="pending"></div>
     </div>
   </div>
-</div>
 
-<!-- WINNER -->
-<div class="wb" id="winner-banner">
-  <canvas id="cc" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;"></canvas>
-  <div class="wtr">🏆</div>
-  <div class="wti" data-k="winner_title">አሸናፊ!</div>
-  <div class="wnb" id="w-name"></div>
-  <div style="font-size:1.7rem;font-weight:800;color:var(--gold);margin:8px 0;" id="w-prize"></div>
-  <div style="font-size:0.82rem;color:rgba(255,255,255,0.55);margin-bottom:16px;" id="w-bank"></div>
-  <button class="btn bg" onclick="closeWinner()" style="width:auto;padding:11px 28px;">🎊 <span data-k="close">ዝጋ</span></button>
-</div>
+  <div id="pg-players" class="pg">
+    <div class="card">
+      <h3 style="margin-bottom:12px;" id="t-plist-title">የተጫዋቾች ዝርዝር</h3>
+      <div id="players-list"></div>
+    </div>
+  </div>
 
-<div class="toast" id="toast"></div>
+  <div id="pg-admin" class="pg">
+    <div class="card adm-ctrl">
+      <h3>የአስተዳዳሪ መቆጣጠሪያ (Admin)</h3>
+      <div class="num-disp" id="adm-num">--</div>
+      <button class="action-btn" onclick="drawNumber()" style="background:#00FF66;color:black;">አዲስ ቁጥር አውጣ</button>
+      <button class="action-btn" id="auto-btn" onclick="toggleAutoDraw()" style="background:var(--gold);color:black;">አውቶማቲክ ጥሪ ጀምር (Auto Draw)</button>
+      <button class="action-btn" onclick="resetGame()" style="background:var(--eth-red);color:white;box-shadow:none;">ጨዋታውን አዲስ ጀምር (Reset)</button>
+    </div>
+    <div class="card" style="margin-top:16px;">
+      <h4 style="margin-bottom:10px;">ክፍያ የላኩ ተጫዋቾች ማረጋገጫና የካርቴላ ብዛት ቁጥጥር</h4>
+      <div id="admin-p-list"></div>
+    </div>
+  </div>
+</main>
+
+<nav>
+  <button class="tb active" onclick="showPage('lobby', this)" id="nv-lobby">
+    <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+    <span>ሎቢ</span>
+  </button>
+  <button class="tb" onclick="showPage('game', this)" id="nv-game">
+    <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM9 11H7V9h2v2zm4 0h-2V9h2v2zm4 0h-2V9h2v2z"/></svg>
+    <span>ካርዴ</span>
+  </button>
+  <button class="tb" onclick="showPage('payment', this)" id="nv-payment">
+    <svg viewBox="0 0 24 24"><path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2-.9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5 0.67 1.5 1.5-0.67 1.5-1.5 1.5z"/></svg>
+    <span>ክፍያ</span>
+  </button>
+  <button class="tb" onclick="showPage('players', this)" id="nv-players">
+    <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+    <span>ተጫዋቾች</span>
+  </button>
+  <button class="tb" onclick="showPage('admin', this)" style="display:none;" id="nv-admin">
+    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+    <span>አስተዳዳሪ</span>
+  </button>
+</nav>
 
 <script>
-// ── LANGS ──────────────────────────────────────────────────
-const L={
-  am:{lobby:"ሎቢ",game:"ጌም",payment:"ክፍያ",players:"ተጫዋቾ",admin:"አስተዳዳሪ",
-    prize_pool:"የሽልማት ድምር",active_players:"ንቁ ተጫዋቾ",called_nums:"የተጠሩ ቁጥሮች",
-    entry_fee:"የመግቢያ ዋጋ (ብር)",winners_today:"የዛሬ አሸናፊዎች",
-    join_game:"ጌሙን ተቀላቀሉ",your_name:"ስምዎ",your_phone:"ስልክ ቁጥር",
-    card_count:"የካርድ ብዛት",room_code_label:"የክፍል ኮድ (ካለ)",join_btn:"ጌሙን ጀምር!",
-    last_called:"መጨረሻ የተጠራ",payment_title:"ክፍያ ያድርጉ",amount_to_pay:"የሚከፍሉት",
-    select_bank:"ባንክ ይምረጡ",send_to:"ይላኩ ወደ",tx_ref:"የደረሰኝ ቁጥር",
-    confirm_pay:"ክፍያ አረጋግጥ",pay_history:"የክፍያ ታሪክ",leaderboard:"ሊደርቦርድ",
-    admin_login:"Admin ይግቡ",login:"ግቡ",game_control:"ጌም ቁጥጥር",
-    entry_fee_set:"የመግቢያ ዋጋ (ብር)",prize_pct:"የሽልማት ፐርሰንት (%)",
-    call_speed:"የጥሪ ፍጥነት",start_game:"ጀምር",stop_game:"አቁም",
-    call_next:"ቀጣይ",reset:"ዳግም",bank_settings:"የባንክ ቅንብር",
-    room_code:"የክፍል ኮድ",new_code:"አዲስ ኮድ",game_stats:"ስታቲስቲክስ",
-    approve_players:"ተጫዋቾ ማፅደቅ",winner_title:"አሸናፊ! 🎉",close:"ዝጋ",
-    app_title:"ይስማዉ ቢንጎ",
-    bingo_win:"ቢንጎ! አሸነፍክ/ሽ! 🎉",bingo_false:"ቢንጎ አልተሟላም! ካርድዎን ያረጋግጡ።",
-    no_name:"ስምዎን ያስገቡ!",pay_first:"ቅድሚያ ክፍያ ያድርጉ!",
-    payment_sent:"✅ ክፍያ ተልኳል! Admin ያረጋግጣሉ።",fill_tx:"የደረሰኝ ቁጥር ያስገቡ!",
-    select_bank_first:"ባንክ ይምረጡ!",game_started:"🎮 ጌሙ ተጀምሯል!",
-    game_stopped:"⏹️ ጌሙ ቆሟል!",game_reset:"🔄 ዳግም ተጀምሯል!",
-    approve:"✅ አፅድቅ",reject:"❌ ውድቅ",approved:"✅ ተፈቅዷል!",rejected:"❌ ውድቅ!",
-    free_space:"FREE",cards_label:"ካርዶቼ",card_label:"ካርድ",
-    wrong_pin:"❌ PIN ስህተት!",all_called:"ሁሉም ቁጥሮች ተጠርተዋል!",no_game:"ጌሙ ገና አልተጀመረም!",
-    safety_title:"የጥንቃቄ መልዕክት",
-    safety_text:"ይህ ጨዋታ ለመዝናኛ ብቻ የተዘጋጀ ነው። እባክዎ በኃላፊነት ስሜት እና ሊያጡት የሚችሉትን ያህል ገንዘብ ብቻ በመመደብ ይጫወቱ። ከልክ ያለፈ ቁማር/ውርርድ ሱስ ሊያስይዝ እንደሚችል ይገንዘቡ። ዕድሜዎ ከ18 ዓመት በላይ መሆኑን ያረጋግጡ።"},
-  en:{lobby:"Lobby",game:"Game",payment:"Payment",players:"Players",admin:"Admin",
-    prize_pool:"Prize Pool",active_players:"Active Players",called_nums:"Called Numbers",
-    entry_fee:"Entry Fee (ETB)",winners_today:"Today's Winners",
-    join_game:"Join the Game",your_name:"Your Name",your_phone:"Phone Number",
-    card_count:"Number of Cards",room_code_label:"Room Code (if any)",join_btn:"Start Playing!",
-    last_called:"Last Called",payment_title:"Make Payment",amount_to_pay:"Amount to Pay",
-    select_bank:"Select Bank",send_to:"Send To",tx_ref:"Transaction Reference",
-    confirm_pay:"Confirm Payment",pay_history:"Payment History",leaderboard:"Leaderboard",
-    admin_login:"Admin Login",login:"Login",game_control:"Game Control",
-    entry_fee_set:"Entry Fee (ETB)",prize_pct:"Prize Percentage (%)",
-    call_speed:"Call Speed",start_game:"Start",stop_game:"Stop",
-    call_next:"Call Next",reset:"Reset",bank_settings:"Bank Settings",
-    room_code:"Room Code",new_code:"New Code",game_stats:"Statistics",
-    approve_players:"Approve Players",winner_title:"WINNER! 🎉",close:"Close",
-    app_title:"Yismaw Bingo",
-    bingo_win:"BINGO! You won! 🎉",bingo_false:"Bingo not complete! Check your card.",
-    no_name:"Enter your name!",pay_first:"Please pay first!",
-    payment_sent:"✅ Payment sent! Admin will verify.",fill_tx:"Enter transaction reference!",
-    select_bank_first:"Select a bank!",game_started:"🎮 Game started!",
-    game_stopped:"⏹️ Game stopped!",game_reset:"🔄 Game reset!",
-    approve:"✅ Approve",reject:"❌ Reject",approved:"✅ Approved!",rejected:"❌ Rejected!",
-    free_space:"FREE",cards_label:"My Cards",card_label:"Card",
-    wrong_pin:"❌ Wrong PIN!",all_called:"All numbers called!",no_game:"Game not started!",
-    safety_title:"Safety Notice & Disclaimer",
-    safety_text:"This game is for entertainment purposes only. Please play responsibly and only budget what you can afford to lose. Be aware that excessive gambling/betting can be addictive. Ensure you are 18+ years of age."}
+const ST = {
+  lang: 'am',
+  entryFee: 50,
+  prizePct: 80,
+  maxCartela: 1000, 
+  adminPassword: "admin123", 
+  isAdminMode: false,
+  player: null,    
+  myCards: [],    
+  players: [],     
+  calledNums: [],  
+  autoInterval: null, 
+  banks: [
+    { name: 'የኢትዮጵያ ንግድ ባንክ (CBE)', acc: '1000353285266', holder: 'ይስማው አለማየሁ', cls: 'cbe-card', logoCls: 'cbe-logo' },
+    { name: 'አዲስ ባንክ (Addis Bank)', acc: '1240045642223001', holder: 'ይስማው አለማየሁ', cls: 'addis-card', logoCls: 'addis-logo' },
+    { name: 'አቢሲኒያ ባንክ (BoA)', acc: '22678862', holder: 'ይስማው አለማየሁ', cls: 'boa-card', logoCls: 'boa-logo' },
+    { name: 'ቴሌብር (Telebirr)', acc: '0912329647', holder: 'ይስማው አለማየሁ', cls: 'tele-card', logoCls: 'tele-logo' }
+  ]
 };
 
-// ── BANKS LIST ───────────────────────────────────────────
-const BANKS=[
-  {id:"telebirr1",name:"Telebirr (Option 1)",icon:"📱",account:"0912329647",holder:"Yismaw Alemayehu Gashu",type:"mobile"},
-  {id:"telebirr2",name:"Telebirr (Option 2)",icon:"📱",account:"0920509047",holder:"Yismaw Alemayehu Gashu",type:"mobile"},
-  {id:"addis",name:"Addis Bank S.C.",icon:"🏦",account:"1240045642223001",holder:"Yismaw Alemayehu Gashu",type:"bank"},
-  {id:"boa",name:"Bank of Abyssinia",icon:"🏦",account:"22668862",holder:"Yismaw Alemayehu Gashu",type:"bank"},
-  {id:"cbe",name:"Commercial Bank of Ethiopia",icon:"🏦",account:"1000353285266",holder:"Yismaw Alemayehu Gashu",type:"bank"}
-];
-
-// ── STATE ──────────────────────────────────────────────────
-const ST={
-  lang: localStorage.getItem('bl')||'am',
-  player:null, myCards:[], calledNums:[],
-  running:false, timer:null,
-  entryFee:50, prizePct:80, speed:5000,
-  roomCode:'',
-  players: JSON.parse(localStorage.getItem('bp')||'[]'),
-  payments: JSON.parse(localStorage.getItem('bpay')||'[]'),
-  winners:  JSON.parse(localStorage.getItem('bw')||'[]'),
-  adminIn:false, selBank:null, PIN:'1234',
-};
-
-// ── HELPERS ────────────────────────────────────────────────
-const t=k=>(L[ST.lang]&&L[ST.lang][k])||L.am[k]||k;
-const $=id=>document.getElementById(id);
-const letter=n=>n<=15?'B':n<=30?'I':n<=45?'N':n<=60?'G':'O';
-const save=()=>{
-  localStorage.setItem('bp',JSON.stringify(ST.players));
-  localStorage.setItem('bpay',JSON.stringify(ST.payments));
-  localStorage.setItem('bw',JSON.stringify(ST.winners));
-};
-const prize=()=>{
-  const act=ST.players.filter(p=>p.status!=='waiting').length;
-  return Math.floor(act*ST.entryFee*ST.prizePct/100);
-};
-
-// ── WELCOME ────────────────────────────────────────────────
-function closeWelcome(){
-  const o=$('wo');
-  o.style.opacity='0';
-  o.style.transition='opacity 0.3s';
-  setTimeout(()=>o.remove(),300);
-}
-
-// ── LANG ───────────────────────────────────────────────────
-function setLang(l){
-  ST.lang=l; localStorage.setItem('bl',l);
-  applyLang();
-}
-function applyLang(){
-  document.querySelectorAll('[data-k]').forEach(el=>{
-    const k=el.getAttribute('data-k');
-    el.textContent=t(k);
-  });
-  $('apptitle').textContent=t('app_title');
-  $('lsel').value=ST.lang;
-}
-
-// ── BINGO CARD ─────────────────────────────────────────────
-function genCard(){
-  const ranges=[[1,15],[16,30],[31,45],[46,60],[61,75]];
-  const card=ranges.map(([mn,mx])=>{
-    const col=[];
-    while(col.length<5){const n=mn+Math.floor(Math.random()*(mx-mn+1));if(!col.includes(n))col.push(n);}
-    return col;
-  });
-  card[2][2]='FREE';
-  return card;
-}
-
-function renderCard(card,ci){
-  const CC=['#e74c3c','#e67e22','#2ecc71','#3498db','#9b59b6'];
-  const cols=['B','I','N','G','O'];
-  let h=`<div class="card" style="margin-bottom:14px;">
-    <div class="ct">${t('card_label')} #${ci+1}</div>
-    <div class="bh">${cols.map((c,i)=>`<div class="bcl" style="background:${CC[i]}">${c}</div>`).join('')}</div>
-    <div class="bg2">`;
-  for(let r=0;r<5;r++) for(let c=0;c<5;c++){
-    const v=card[c][r], isFree=v==='FREE';
-    const called=!isFree&&ST.calledNums.includes(v);
-    const marked=isFree||(ST.player?.markedCells?.[ci]?.includes(`${c}-${r}`));
-    let cls='bc'+(isFree?' fr':marked?' mk':called?' cl':'');
-    h+=`<div class="${cls}" onclick="markCell(${ci},${c},${r},${isFree?'"FREE"':v})" id="c${ci}-${c}-${r}">${isFree?t('free_space'):v}</div>`;
+const LABELS = {
+  am: {
+    welcome: "እንኳን ደህና መጡ!", subtitle: "የኢትዮጵያ ቁጥር 1 ዲጂታል የቢንጎ ጨዋታ መድረክ",
+    rules_title: "📜 የጨዋታው ህግና ደንብ", safety_title: "⚠️ የጥንቃቄ መልዕክት",
+    active_p: "ተጫዋቾች", called_n: "የወጡ ቁጥሮች", grand_prize: "የአሸናፊው ሽልማት",
+    enter_details: "ለመጫወት መረጃዎን ያስገቡ", btn_reg: "ለመመዝገብ ይጫኑ",
+    pay_title: "የመግቢያ ክፍያ መክፈያ", pay_sub: "እባክዎ መጀመሪያ ክፍያ በመፈፀም የደረሰኝ ቁጥሩን (Ref No) ከታች ያስገቡ።",
+    lbl_ref: "የክፍያ ማረጋገጫ ቁጥር (Txn Ref No):", btn_submit_pay: "ክፍያውን አረጋግጥ",
+    plist_title: "የተጫዋቾች ዝርዝር", join_game: "ለመጫወት እባክዎ መጀመሪያ ሎቢ ውስጥ ይመዝገቡ!",
+    nv_lobby: "ሎቢ", nv_game: "ካርዴ", nv_payment: "ክፍያ", nv_players: "ተጫዋቾች"
+  },
+  en: {
+    welcome: "Welcome to Bingo!", subtitle: "Ethiopia's Number 1 Digital Bingo Platform",
+    rules_title: "📜 Rules & Regulations", safety_title: "⚠️ Safety Notice",
+    active_p: "Active Players", called_n: "Numbers Called", grand_prize: "Grand Prize Pool",
+    enter_details: "Enter your details to join", btn_reg: "Register Now",
+    pay_title: "Payment Methods", pay_sub: "Please pay first and enter your Transaction Reference number below.",
+    lbl_ref: "Transaction Reference Number (Ref No):", btn_submit_pay: "Submit Reference",
+    plist_title: "Players List", join_game: "Please register in the Lobby first to view cards!",
+    nv_lobby: "Lobby", nv_game: "My Card", nv_payment: "Payment", nv_players: "Players"
   }
-  h+=`</div></div>`;
-  return h;
+};
+
+const RULES_DATA = {
+  am: [
+    "1. በሎቢው በመመዝገብ የመረጡትን የባንክ አማራጭ ተጠቅመው 50 ብር ይክፈሉ።",
+    "2. የክፍያ ማረጋገጫ ቁጥርዎን (Ref No) ሲያስገቡ በራስ-ሰር የቢንጎ ካርድ ይሰጥዎታል።",
+    "3. አስተዳዳሪው ቁጥሮችን በየተራ ሲወጣ፣ በካርድዎ ላይ ያሉትን ቁጥሮች በመንካት ያደምቁ።",
+    "4. በአግድም፣ በቁመት ወይም በሰያፍ 5 ቁጥሮችን ቀድሞ የሞላ \"BINGO\" በመጫን አሸናፊ ይሆናል!"
+  ],
+  en: [
+    "1. Register in the Lobby and pay 50 Birr using your preferred banking method.",
+    "2. Enter your Payment Reference (Ref No) to instantly receive your Bingo Card.",
+    "3. As the admin draws numbers, click on matching numbers on your card to mark them.",
+    "4. Complete 5 numbers horizontally, vertically, or diagonally and hit \"BINGO\" to win!"
+  ]
+};
+
+const SAFETY_DATA = {
+  am: [
+    "• ጨዋታውን ለመዝናኛ ብቻ ይጫወቱት፤ ከሚችሉት በላይ ገንዘብ መድበው አይጫወቱ።",
+    "• በማንኛውም ሰዓት የቴክኒክ ችግር ካጋጠመዎት ለአስተዳዳሪው ያሳውቁ።"
+  ],
+  en: [
+    "• Play responsibly and purely for entertainment. Never spend more than you can afford.",
+    "• If you encounter any technical issues, notify the administrator immediately."
+  ]
+};
+
+function $(id){ return document.getElementById(id); }
+function t(key){ return LABELS[ST.lang][key] || key; }
+
+function toggleAdminLoginField() {
+  ST.isAdminMode = !ST.isAdminMode;
+  if(ST.isAdminMode) {
+    $('admin-pass-container').style.display = 'block';
+    $('reg-name').value = "Yismaw Admin";
+    $('btn-register').textContent = ST.lang === 'am' ? "እንደ አስተዳዳሪ ግባ" : "Login as Admin";
+  } else {
+    $('admin-pass-container').style.display = 'none';
+    $('reg-name').value = "";
+    $('btn-register').textContent = ST.lang === 'am' ? "ለመመዝገብ ይጫኑ" : "Register Now";
+  }
 }
 
-// ── JOIN ───────────────────────────────────────────────────
+function toggleLang(){
+  ST.lang = ST.lang === 'am' ? 'en' : 'am';
+  $('lang-btn').textContent = ST.lang === 'am' ? 'EN' : 'አማ';
+  
+  $('t-welcome').textContent = t('welcome');
+  $('t-subtitle').textContent = t('subtitle');
+  $('t-rules-title').textContent = t('rules_title');
+  $('t-safety-title').textContent = t('safety_title');
+  $('t-active-p').textContent = t('active_p');
+  $('t-called-n').textContent = t('called_n');
+  $('t-grand-prize').textContent = t('grand_prize');
+  $('t-enter-details').textContent = t('enter_details');
+  if(!ST.isAdminMode) $('btn-register').textContent = t('btn_reg');
+  $('t-pay-title').textContent = t('pay_title');
+  $('t-pay-sub').textContent = t('pay_sub');
+  $('t-lbl-ref').textContent = t('lbl_ref');
+  $('btn-submit-pay').textContent = t('btn_submit_pay');
+  $('t-plist-title').textContent = t('plist_title');
+  
+  $('nv-lobby').querySelector('span').textContent = t('nv-lobby');
+  $('nv-game').querySelector('span').textContent = t('nv-game');
+  $('nv-payment').querySelector('span').textContent = t('nv-payment');
+  $('nv-players').querySelector('span').textContent = t('nv-players');
+
+  $('rules-box').innerHTML = RULES_DATA[ST.lang].map(r => `<li>${r}</li>`).join('');
+  $('safety-box').innerHTML = SAFETY_DATA[ST.lang].map(s => `<li>${s}</li>`).join('');
+  
+  renderMyCards();
+}
+
+function prize(){
+  const activeCount = ST.players.reduce((sum, p) => sum + (p.cardsCount || 0), 0);
+  return activeCount * ST.entryFee * (ST.prizePct/100);
+}
+
 function joinGame(){
-  const name=$('pname').value.trim(), phone=$('pphone').value.trim();
-  const count=parseInt($('ccount').value);
-  if(!name){toast(t('no_name'),'red');return;}
-  const cards=[], mc={};
-  for(let i=0;i<count;i++){cards.push(genCard());mc[i]=['2-2'];}
-  ST.player={name,phone,cards,markedCells:mc,paid:false,cardCount:count};
-  ST.myCards=cards;
-  const ex=ST.players.findIndex(p=>p.phone===phone);
-  if(ex>=0) ST.players[ex]={...ST.players[ex],name,cardCount:count,status:'waiting'};
-  else ST.players.push({name,phone,cardCount:count,status:'waiting',wins:0,id:Date.now()});
-  save();
-  $('pay-total').textContent=`${count*ST.entryFee} ብር`;
-  toast(`✅ ${name} — ${count} ${t('card_label')}!`);
-  renderMyCards();
-  showPage('payment', document.querySelectorAll('.tb')[2]);
-}
-
-// ── MARK ───────────────────────────────────────────────────
-function markCell(ci,c,r,v){
-  if(!ST.player||v==='FREE') return;
-  if(!ST.calledNums.includes(v)){toast(`⚠️ ${v} ${t('last_called')}!`,'red');return;}
-  const key=`${c}-${r}`, mc=ST.player.markedCells;
-  if(!mc[ci]) mc[ci]=['2-2'];
-  const idx=mc[ci].indexOf(key);
-  if(idx>=0) mc[ci].splice(idx,1); else mc[ci].push(key);
-  const el=$(`c${ci}-${c}-${r}`);
-  if(el) el.className='bc'+(mc[ci].includes(key)?' mk':ST.calledNums.includes(v)?' cl':'');
-}
-
-// ── BINGO CHECK ────────────────────────────────────────────
-function checkBingo(ci){
-  const s=new Set(ST.player.markedCells[ci]||[]);
-  for(let r=0;r<5;r++) if([0,1,2,3,4].every(c=>s.has(`${c}-${r}`))) return true;
-  for(let c=0;c<5;c++) if([0,1,2,3,4].every(r=>s.has(`${c}-${r}`))) return true;
-  if([0,1,2,3,4].every(i=>s.has(`${i}-${i}`))) return true;
-  if([0,1,2,3,4].every(i=>s.has(`${i}-${4-i}`))) return true;
-  return false;
-}
-
-function claimBingo(){
-  if(!ST.player){toast(t('no_name'),'red');return;}
-  if(!ST.player.paid){toast(t('pay_first'),'red');return;}
-  if(!ST.running){toast(t('no_game'),'red');return;}
-  let won=false;
-  for(let i=0;i<ST.myCards.length;i++) if(checkBingo(i)){won=true;highlightWin(i);break;}
-  if(won){
-    const p=prize();
-    showWinner(ST.player.name,p,ST.player);
-    ST.player.paid=false;
-    ST.winners.push({name:ST.player.name,phone:ST.player.phone,prize:p,date:new Date().toLocaleString()});
-    const pl=ST.players.find(x=>x.phone===ST.player.phone);
-    if(pl){pl.wins++;pl.status='won';}
-    save();
-    renderLobbyStats(); renderPlayers();
-  } else toast(t('bingo_false'),'red');
-}
-
-function highlightWin(ci){
-  document.querySelectorAll(`[id^="c${ci}-"]`).forEach(el=>{if(el.classList.contains('mk'))el.classList.add('wc');});
-}
-
-// ── CALLER ─────────────────────────────────────────────────
-function callNext(){
-  const all=Array.from({length:75},(_,i)=>i+1).filter(n=>!ST.calledNums.includes(n));
-  if(!all.length){toast(t('all_called'));return;}
-  const n=all[Math.floor(Math.random()*all.length)];
-  ST.calledNums.push(n);
-  const l=letter(n);
-  $('cltr').textContent=l;
-  $('cball').textContent=n;
-  const cnums=$('cnums');
-  const chip=document.createElement('span');
-  chip.className=`cc ${l.toLowerCase()}`;
-  chip.textContent=l+n;
-  cnums.prepend(chip);
-  if(cnums.children.length>30) cnums.lastChild.remove();
-  renderMyCards();
-}
-
-function startGame(){
-  ST.running=true;
-  ST.players.forEach(p=>{if(p.status==='waiting')p.status='active';});
-  save();
-  if(ST.speed>0) ST.timer=setInterval(callNext,ST.speed);
-  toast(t('game_started'),'gold');
-  renderLobbyStats();
-}
-function stopGame(){
-  ST.running=false;
-  if(ST.timer){clearInterval(ST.timer);ST.timer=null;}
-  toast(t('game_stopped'));
-}
-function resetGame(){
-  stopGame();
-  ST.calledNums=[];
-  ST.players.forEach(p=>p.status='waiting');
-  if(ST.player){
-    ST.player.markedCells={};
-    ST.myCards.forEach((_,i)=>ST.player.markedCells[i]=['2-2']);
+  const name = $('reg-name').value.trim();
+  if(!name){ alert(ST.lang==='am'?'እባክዎ ስም ያስገቡ':'Please enter your name'); return; }
+  
+  if(ST.isAdminMode || name.toLowerCase() === 'yismaw admin') {
+    const passInput = $('admin-password').value;
+    if(passInput !== ST.adminPassword) {
+      alert(ST.lang === 'am' ? 'የተሳሳተ የአስተዳዳሪ ይለፍ ቃል ነው!' : 'Incorrect Admin Password!');
+      return;
+    }
+    ST.player = { id: 'admin_' + Date.now(), name, status: 'active', role: 'admin', cardsCount: 0 };
+    $('nv-admin').style.display = 'flex';
+    alert(ST.lang === 'am' ? 'እንደ አስተዳዳሪ ገብተዋል!' : 'Logged in as Admin!');
+    $('join-card').innerHTML = `<div style="text-align:center;color:var(--eth-green);font-weight:bold;padding:10px;">✓ Admin Logged In</div>`;
+    showPage('admin', $('nv-admin'));
+    mockSync();
+    return;
   }
-  $('cball').textContent='?'; $('cltr').textContent='—'; $('cnums').innerHTML='';
-  save(); toast(t('game_reset'));
-  renderMyCards(); renderLobbyStats();
-}
-
-// ── PAYMENT ────────────────────────────────────────────────
-function renderBanks(){
-  const mob=BANKS.filter(b=>b.type==='mobile'), bk=BANKS.filter(b=>b.type==='bank');
-  $('banks-list').innerHTML=
-    `<div style="font-size:0.75rem;color:rgba(255,215,0,0.8);margin-bottom:5px;">📱 Mobile Money</div>`+
-    mob.map(b=>`<div class="bi" id="bk-${b.id}" onclick="selBank('${b.id}')"><div class="bic">${b.icon}</div><div><div class="bnm">${b.name}</div><div class="btp">${b.account}</div></div></div>`).join('')+
-    `<div style="font-size:0.75rem;color:rgba(255,215,0,0.8);margin:8px 0 5px;">🏦 Banks</div>`+
-    bk.map(b=>`<div class="bi" id="bk-${b.id}" onclick="selBank('${b.id}')"><div class="bic">${b.icon}</div><div><div class="bnm">${b.name}</div><div class="btp">${b.account}</div></div></div>`).join('');
-}
-
-function selBank(id){
-  ST.selBank=id;
-  document.querySelectorAll('.bi').forEach(e=>e.classList.remove('sel'));
-  $('bk-'+id)?.classList.add('sel');
-  const b=BANKS.find(x=>x.id===id);
-  if(b){$('acct-display').style.display='block';$('acct-num').textContent=b.account;$('acct-name').textContent=b.holder+' — '+b.name;}
+  
+  ST.player = { id: 'p_' + Date.now(), name, status: 'waiting', role: 'player', cardsCount: 0 };
+  ST.players.push(ST.player);
+  
+  $('join-card').innerHTML = `<div style="text-align:center;color:var(--eth-green);font-weight:bold;padding:10px;">
+    ✓ ${ST.lang==='am'?'በተሳካ ሁኔታ ተመዝግበዋል! ቀጣዩን ደረጃ ይከተሉ':'Registered Successfully! Proceed to payment.'}
+  </div>`;
+  
+  mockSync();
+  showPage('payment', $('nv-payment'));
 }
 
 function submitPayment(){
-  if(!ST.player){toast(t('no_name'),'red');return;}
-  if(!ST.selBank){toast(t('select_bank_first'),'red');return;}
-  const tx=$('txref').value.trim();
-  if(!tx){toast(t('fill_tx'),'red');return;}
-  const b=BANKS.find(x=>x.id===ST.selBank);
-  const total=ST.player.cardCount*ST.entryFee;
-  ST.payments.push({id:Date.now(),name:ST.player.name,phone:ST.player.phone,amount:total,bank:b.name,txRef:tx,status:'pending',date:new Date().toLocaleString()});
-  ST.player.paid=true;
-  const pl=ST.players.find(x=>x.phone===ST.player.phone);
-  if(pl) pl.status='active';
-  save(); toast(t('payment_sent'),'gold'); $('txref').value='';
-  showPage('lobby', document.querySelectorAll('.tb')[0]);
+  if(!ST.player){ alert(ST.lang==='am'?'እባክዎ መጀመሪያ ሎቢ ውስጥ ይመዝገቡ!':'Please register in Lobby first!'); return; }
+  const refVal = $('pay-ref-input').value.trim();
+  if(!refVal){ alert(ST.lang==='am'?'እባክዎ የደረሰኝ ቁጥር ያስገቡ':'Please enter Reference Number'); return; }
+  
+  ST.player.status = 'pending';
+  ST.player.ref = refVal;
+  
+  alert(ST.lang==='am'?'የክፍያ ማረጋገጫዎ ለአስተዳዳሪ ተልኳል! ለአፍታ ይጠብቁ።':'Payment reference submitted! Please wait for approval.');
+  mockSync();
+  showPage('lobby', $('nv-lobby'));
 }
 
-// ── PLAYERS ────────────────────────────────────────────────
+function copyTxt(text){
+  navigator.clipboard.writeText(text);
+  alert(ST.lang==='am'?'አካውንቱ考ፒ ተደርጓል!':'Account copied!');
+}
+
+function generateRandomCard(){
+  let nums = [];
+  while(nums.length < 25){
+    let r = Math.floor(Math.random() * 75) + 1;
+    if(!nums.includes(r)) nums.push(r);
+  }
+  nums[12] = 'FREE'; 
+  return nums;
+}
+
+function approvePlayer(pid){
+  const p = ST.players.find(x=>x.id === pid);
+  if(p){
+    const countInput = parseInt($(`count-${pid}`).value) || 1;
+    
+    if(countInput < 1 || countInput > ST.maxCartela) {
+      alert(ST.lang === 'am' ? `የካርቴላ መጠን ከ1 እስከ ${ST.maxCartela} መሆን አለበት!` : `Card count must be between 1 and ${ST.maxCartela}!`);
+      return;
+    }
+
+    p.status = 'active';
+    p.cardsCount = countInput;
+    
+    if(p.id === ST.player.id){
+      ST.player.status = 'active';
+      ST.player.cardsCount = countInput;
+      ST.myCards = [];
+      for(let i=0; i<countInput; i++) {
+        ST.myCards.push(generateRandomCard());
+      }
+    }
+    mockSync();
+  }
+}
+
+function drawNumber(){
+  if(ST.calledNums.length >= 75) {
+    if(ST.autoInterval) toggleAutoDraw();
+    alert('ሁሉም ቁጥሮች ወጥተዋል!');
+    return;
+  }
+  let r;
+  do { r = Math.floor(Math.random() * 75) + 1; } while(ST.calledNums.includes(r));
+  ST.calledNums.push(r);
+  
+  let letter = (r<=15?'B':r<=30?'I':r<=45?'N':r<=60?'G':'O');
+  $('adm-num').textContent = `${letter}-${r}`;
+  
+  // ⛔ SPEAK NUMBER (CALL VOICE CODE) REMOVED COMPLETELY FROM HERE
+  mockSync();
+}
+
+function toggleAutoDraw() {
+  if (ST.autoInterval) {
+    clearInterval(ST.autoInterval);
+    ST.autoInterval = null;
+    $('auto-btn').textContent = ST.lang === 'am' ? 'አውቶማቲክ ጥሪ ጀምር (Auto Draw)' : 'Start Auto Draw';
+    $('auto-btn').style.background = "var(--gold)";
+  } else {
+    drawNumber(); 
+    ST.autoInterval = setInterval(drawNumber, 4500); 
+    $('auto-btn').textContent = ST.lang === 'am' ? 'አውቶማቲክ ጥሪ አቁም (Stop Auto)' : 'Stop Auto Draw';
+    $('auto-btn').style.background = "var(--eth-red)";
+    $('auto-btn').style.color = "white";
+  }
+}
+
+function resetGame(){
+  if(ST.autoInterval) toggleAutoDraw();
+  ST.calledNums = [];
+  ST.players = ST.players.map(p => { p.status='waiting'; p.cardsCount = 0; delete p.ref; return p; });
+  ST.myCards = [];
+  if(ST.player && ST.player.role !== 'admin') { ST.player.status = 'waiting'; ST.player.cardsCount = 0; }
+  $('adm-num').textContent = '--';
+  mockSync();
+  alert('ጨዋታው በሙሉ ተደልዟል!');
+}
+
+function renderBanks(){
+  $('banks-list').innerHTML = ST.banks.map(b => `
+    <div class="b-card ${b.cls}">
+      <div class="b-header">
+        <span class="b-logo ${b.logoCls}">${b.name}</span>
+        <button class="copy-b" onclick="copyTxt('${b.acc}')">Copy</button>
+      </div>
+      <div style="font-size:1.3rem;font-weight:bold;margin-bottom:4px;letter-spacing:1px;text-shadow: 0 0 5px rgba(255,255,255,0.3);">${b.acc}</div>
+      <div style="font-size:0.85rem;color:rgba(255,255,255,0.8)">የአካውንት ስም: ${b.holder}</div>
+    </div>
+  `).join('');
+}
+
+function renderCard(card, cardIdx){
+  return `
+    <div class="card" style="margin-bottom: 20px;">
+      <h3 style="text-align:center;color:var(--eth-yellow);margin-bottom:10px;">ካርድ #${cardIdx+1}</h3>
+      <div class="grid5">
+        ${card.map((n,i) => {
+          const isMarked = n==='FREE' || ST.calledNums.includes(n);
+          const cls = n==='FREE' ? 'cell free' : (isMarked ? 'cell marked' : 'cell');
+          return `<div class="${cls}" onclick="this.classList.toggle('marked')">${n}</div>`;
+        }).join('')}
+      </div>
+    </div>
+  `;
+}
+
 function renderPlayers(){
-  const sorted=[...ST.players].sort((a,b)=>b.wins-a.wins);
-  $('plist').innerHTML=sorted.length
-    ?sorted.map((p,i)=>`<div class="pi"><div class="pav">${i===0?'🏆':i===1?'🥈':i===2?'🥉':p.name[0]}</div><div class="pif"><div class="pn">${p.name}</div><div class="ps">📞${p.phone} 🃏${p.cardCount||1} 🏆${p.wins||0}</div></div><span class="pst ${p.status==='won'?'sw':p.status==='active'?'sa':'swt'}">${p.status==='won'?'🏆':p.status==='active'?'✅':'⏳'}</span></div>`).join('')
-    :`<div style="text-align:center;color:rgba(255,255,255,0.3);padding:24px;">—</div>`;
+  $('players-list').innerHTML = ST.players.map(p => `
+    <div class="p-row">
+      <span><b>${p.name}</b> ${p.id===ST.player?.id?'(አንተ)':''} (${p.cardsCount || 0} ካርድ)</span>
+      <span class="p-badge ${p.status}">${p.status}</span>
+    </div>
+  `).join('');
 }
 
-// ── ADMIN ──────────────────────────────────────────────────
-function adminLogin(){
-  if($('apin').value===ST.PIN){
-    ST.adminIn=true;
-    $('admin-login').style.display='none';
-    $('admin-panel').style.display='block';
-    renderAdmin(); toast('✅ Welcome Admin!','gold');
-  } else toast(t('wrong_pin'),'red');
+function renderAdminPage(){
+  const pend = ST.players.filter(p => p.status === 'pending');
+  $('admin-p-list').innerHTML = pend.length ? pend.map(p => `
+    <div class="p-row" style="flex-direction: column; align-items: flex-start; gap: 8px;">
+      <div style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+        <div><b>${p.name}</b></div>
+        <div style="font-size:0.85rem;color:var(--eth-yellow)">Ref: ${p.ref||''}</div>
+      </div>
+      <div style="width: 100%; display: flex; gap: 10px; align-items: center;">
+        <input type="number" id="count-${p.id}" class="input-f" value="1" min="1" max="${ST.maxCartela}" style="margin-top:0; width: 90px; padding: 8px; text-align: center;" placeholder="ብዛት"/>
+        <button class="copy-b" style="background:var(--eth-green);color:black;font-weight:bold;flex: 1; padding: 10px;" onclick="approvePlayer('${p.id}')">ፍቀድ (Approve)</button>
+      </div>
+    </div>
+  `).join('') : '<div style="color:rgba(255,255,255,0.4);text-align:center;">ማረጋገጫ የሚጠብቅ ተጫዋች የለም።</div>';
 }
 
-function applySettings(){
-  ST.entryFee=parseInt($('a-entry').value)||50;
-  ST.prizePct=parseInt($('a-pct').value)||80;
-  ST.speed=parseInt($('a-speed').value)||5000;
+function mockSync(){
+  renderLobbyStats();
+  if($('pg-game').classList.contains('active')) renderMyCards();
+  if($('pg-players').classList.contains('active')) renderPlayers();
+  if($('pg-admin').classList.contains('active')) renderAdminPage();
 }
 
-function renderAdmin(){
-  $('rc-display').textContent=ST.roomCode||'—';
-  const totalPaid=ST.payments.filter(p=>p.status==='confirmed').reduce((a,p)=>a+p.amount,0);
-  $('astats').innerHTML=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
-    <div class="sc"><div class="sn">${ST.players.length}</div><div class="sl">${t('active_players')}</div></div>
-    <div class="sc"><div class="sn">${ST.calledNums.length}</div><div class="sl">${t('called_nums')}</div></div>
-  </div>`;
-  const pend=ST.payments.filter(p=>p.status==='pending');
-  $('pending').innerHTML=pend.length
-    ?pend.map(p=>`<div class="pi"><div class="pif"><div class="pn">${p.name}</div><div class="ps">${p.bank} | ${p.txRef} | ${p.amount}ብር</div></div><div style="display:flex;gap:5px;"><button class="btn bgr bsm" onclick="approvePay(${p.id})">${t('approve')}</button></div></div>`).join('')
-    :`<div style="text-align:center;color:rgba(255,255,255,0.3);padding:16px;">—</div>`;
-}
-
-function approvePay(id){
-  const p=ST.payments.find(x=>x.id===id);
-  if(p){p.status='confirmed';const pl=ST.players.find(x=>x.phone===p.phone);if(pl)pl.status='active';save();toast(t('approved'),'gold');renderAdmin();renderLobbyStats();}
-}
-function genRoom(){
-  const c='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-  let code='';for(let i=0;i<4;i++)code+=c[Math.floor(Math.random()*c.length)];
-  ST.roomCode=code;localStorage.setItem('br',code);
-  $('rc-display').textContent=code;
-}
-
-// ── WINNER ─────────────────────────────────────────────────
-function showWinner(name,p,player){
-  $('w-name').textContent=name;
-  $('w-prize').textContent=`${p.toLocaleString()} ብር 🎉`;
-  $('winner-banner').classList.add('show');
-  startConfetti();
-}
-function closeWinner(){$('winner-banner').classList.remove('show');stopConfetti();}
-
-let cfi=null;
-function startConfetti(){
-  const cv=$('cc'),ctx=cv.getContext('2d');
-  cv.width=innerWidth;cv.height=innerHeight;
-  const P=[],C=['#FFD700','#FF6B6B','#4CAF50','#2196F3'];
-  for(let i=0;i<100;i++) P.push({x:Math.random()*cv.width,y:Math.random()*cv.height-cv.height,w:Math.random()*9+4,h:Math.random()*5+3,color:C[i%4],spd:Math.random()*3+1.5});
-  cfi=setInterval(()=>{
-    ctx.clearRect(0,0,cv.width,cv.height);
-    P.forEach(p=>{p.y+=p.spd;if(p.y>cv.height)p.y=-15;ctx.fillStyle=p.color;ctx.fillRect(p.x,p.y,p.w,p.h);});
-  },16);
-}
-function stopConfetti(){if(cfi){clearInterval(cfi);cfi=null;}}
-
-// ── LOBBY STATS ────────────────────────────────────────────
 function renderLobbyStats(){
-  const act=ST.players.filter(p=>p.status!=='waiting').length, p=prize();
-  $('s-players').textContent=act;
-  $('s-called').textContent=ST.calledNums.length;
-  $('prize-display').textContent=`${p.toLocaleString()} ብር`;
-  $('prize-sub').textContent=`${act} x ${ST.entryFee} x ${ST.prizePct}%`;
+  const act = ST.players.reduce((sum, p) => sum + (p.status==='active' ? p.cardsCount : 0), 0);
+  const p=prize();
+  $('s-players').textContent = ST.players.filter(x => x.status === 'active').length + ` (${act} ካርድ)`;
+  $('s-called').textContent = ST.calledNums.length;
+  $('prize-display').textContent = `${p.toLocaleString()} ብር`;
+  $('prize-sub').textContent = `${act} x ${ST.entryFee} x ${ST.prizePct}%`;
 }
 
 function renderMyCards(){
-  const el=$('mycards');
-  if(!ST.player||!ST.myCards.length){
-    el.innerHTML=`<div class="card"><div style="text-align:center;color:rgba(255,255,255,0.35);padding:24px;">${t('join_game')}</div></div>`;
+  const el = $('mycards');
+  if(!ST.player || !ST.myCards.length){
+    el.innerHTML = `<div class="card"><div style="text-align:center;color:rgba(255,255,255,0.35);padding:24px;\">${t('join_game')}</div></div>`;
     return;
   }
-  el.innerHTML=ST.myCards.map((c,i)=>renderCard(c,i)).join('');
+  el.innerHTML = ST.myCards.map((c,i)=>renderCard(c,i)).join('');
 }
 
-// ── NAV ────────────────────────────────────────────────────
 function showPage(name, btn){
   document.querySelectorAll('.pg').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.tb').forEach(b=>b.classList.remove('active'));
   $('pg-'+name).classList.add('active');
   if(btn instanceof Element) btn.classList.add('active');
-  if(name==='lobby'){renderLobbyStats();}
-  else if(name==='game'){renderMyCards();}
-  else if(name==='payment'){renderBanks();}
-  else if(name==='players'){renderPlayers();}
-  else if(name==='admin'&&ST.adminIn){renderAdmin();}
+  
+  if(name==='lobby') renderLobbyStats();
+  else if(name==='game') renderMyCards();
+  else if(name==='payment') renderBanks();
+  else if(name==='players') renderPlayers();
+  else if(name==='admin') renderAdminPage();
 }
 
-function toast(msg,type=''){
-  const el=$('toast');el.textContent=msg;el.className='toast '+type+' show';
-  setTimeout(()=>el.className='toast',3000);
-}
-
-window.onload=()=>{
-  applyLang();
-  renderLobbyStats();
-  renderBanks();
-  if(!ST.roomCode) genRoom();
+window.onload = function() {
+  showPage('lobby', $('nv-lobby'));
 };
 </script>
 </body>
