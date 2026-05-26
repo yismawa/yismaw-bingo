@@ -1,12 +1,9 @@
-// 1. መጀመሪያ ገጹ ሲከፈት ሊንኩን ያነባል
 const urlParams = new URLSearchParams(window.location.search);
 const userRole = urlParams.get('role');
 
-// 2. በፎቶው ላይ ያሳየኸኝን የኤችቲኤምኤል (HTML) ስክሪኖች በ ID ይፈልጋል
 const adminScreen = document.getElementById('admin-login-screen');
 const playerScreen = document.getElementById('player-wait-screen');
 
-// 3. የገባው ሰው ተጫዋች መሆኑን ያረጋግጣል
 if (userRole === 'player') {
     // ተጫዋች ከሆነ የአድሚን ፎርሙን ይደብቃል፣ የተጫዋች መጠበቂያውን ያሳያል
     if(adminScreen) adminScreen.style.display = 'none';
