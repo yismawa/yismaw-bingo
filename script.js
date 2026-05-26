@@ -1,4 +1,24 @@
-// ማሳሰቢያ፡ ይህንን ኮድ script.js በሚል ፋይል አስቀምጠው
+// 1. መጀመሪያ ገጹ ሲከፈት ሊንኩን ያነባል
+const urlParams = new URLSearchParams(window.location.search);
+const userRole = urlParams.get('role');
+
+// 2. በፎቶው ላይ ያሳየኸኝን የኤችቲኤምኤል (HTML) ስክሪኖች በ ID ይፈልጋል
+const adminScreen = document.getElementById('admin-login-screen');
+const playerScreen = document.getElementById('player-wait-screen');
+
+// 3. የገባው ሰው ተጫዋች መሆኑን ያረጋግጣል
+if (userRole === 'player') {
+    // ተጫዋች ከሆነ የአድሚን ፎርሙን ይደብቃል፣ የተጫዋች መጠበቂያውን ያሳያል
+    if(adminScreen) adminScreen.style.display = 'none';
+    if(playerScreen) playerScreen.style.display = 'flex'; 
+    
+    // ማሳሰቢያ፡ ተጫዋቹ በቀጥታ ወደ ዳታቤዝ እንዲገባ የሚያደርገው ፋንክሽንህ ስም 
+    // ለምሳሌ joinGame() ወይም connectPlayer() ከሆነ እሱን እዚህ ጋ ጥራው።
+} else {
+    // ሊንኩ ላይ ?role=player ካልተጻፈ እንደ አድሚን ይቆጥረዋል
+    if(adminScreen) adminScreen.style.display = 'flex';
+    if(playerScreen) playerScreen.style.display = 'none';
+}
 document.addEventListener('DOMContentLoaded', () => {
     const board = document.getElementById('bingo-board');
     const statusText = document.getElementById('status');
