@@ -1,368 +1,376 @@
 <!DOCTYPE html>
 <html lang="am">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-<title>🎱 ይስማዉ ቢንጎ Pro</title>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-  <link rel="stylesheet" href="style.css">
-<style>
-:root {
-  --gold: #FFD700;
-  --radius: 16px;
-  --green: #00FF66;
-  --yellow: #FFFF00;
-  --red: #FF0033;
-  --blue: #0088ff;
-  --bg: #050b13;
-}
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  font-family: 'Segoe UI', Arial, sans-serif;
-  background: linear-gradient(135deg, #020608, #091920, #112530);
-  min-height: 100vh; color: white; overflow-x: hidden;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ይስማዉ ቢንጎ Pro</title>
+    
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
-/* ── ANIMATIONS ── */
-@keyframes pulse { 0%,100%{transform:scale(1);} 50%{transform:scale(1.05);} }
-@keyframes slideUp { from{transform:translateY(40px);opacity:0;} to{transform:translateY(0);opacity:1;} }
-@keyframes glow { 0%,100%{box-shadow:0 0 10px var(--green);} 50%{box-shadow:0 0 30px var(--green), 0 0 60px var(--green);} }
-@keyframes numPop { 0%{transform:scale(0.5);opacity:0;} 60%{transform:scale(1.2);} 100%{transform:scale(1);opacity:1;} }
+    <style>
+        :root {
+            --gold: #FFD700;
+            --green: #00FF66;
+            --yellow: #FFFF00;
+            --red: #FF0033;
+            --radius: 16px;
+        }
 
-/* ── OVERLAY SCREENS ── */
-.overlay-screen {
-  position: fixed; top:0; left:0; width:100%; height:100%;
-  z-index: 3000; display:flex; flex-direction:column;
-  align-items:center; justify-content:center; padding:20px;
-}
-#admin-login-screen {
-  background: radial-gradient(ellipse at center, #0a1a2e, #020608);
-}
-#player-wait-screen {
-  background: rgba(5,11,19,0.97);
-}
-#winner-screen {
-  background: rgba(0,0,0,0.92);
-  display: none;
-}
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #020608, #091920, #112530);
+            min-height: 100vh; 
+            color: white; 
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-.login-box {
-  background: rgba(255,255,255,0.05);
-  border: 2px solid var(--gold);
-  border-radius: 20px; padding: 35px 25px;
-  width: 100%; max-width: 380px;
-  animation: slideUp 0.5s ease;
-}
-.login-box h2 {
-  text-align:center; font-size:1.8rem; font-weight:900;
-  background: linear-gradient(to right, var(--green), var(--gold), var(--red));
-  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-  margin-bottom: 8px;
-}
-.login-sub { text-align:center; color:#aaa; font-size:0.9rem; margin-bottom:20px; }
+        .screen {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 500px;
+            margin-top: 50px;
+        }
 
-/* ── INPUTS & BUTTONS ── */
-.inp {
-  width:100%; padding:14px 16px;
-  background:rgba(0,0,0,0.6);
-  border:1.5px solid rgba(255,255,255,0.2);
-  border-radius:12px; color:white; font-size:1rem;
-  margin-top:10px; outline:none; transition:all 0.3s;
-}
-.inp:focus { border-color:var(--green); box-shadow:0 0 12px rgba(0,255,102,0.3); }
-.btn {
-  width:100%; padding:15px; font-size:1rem; font-weight:bold;
-  border:none; border-radius:30px; cursor:pointer;
-  margin-top:12px; transition:all 0.2s; letter-spacing:0.5px;
-}
-.btn-green { background:linear-gradient(90deg,#00FF66,#00cc52); color:black; box-shadow:0 5px 20px rgba(0,255,102,0.35); }
-.btn-green:hover { transform:translateY(-2px); box-shadow:0 8px 25px rgba(0,255,102,0.5); }
-.btn-red { background:linear-gradient(90deg,#FF0033,#cc0028); color:white; box-shadow:0 5px 20px rgba(255,0,51,0.35); }
-.btn-gold { background:linear-gradient(90deg,#FFD700,#ffaa00); color:black; box-shadow:0 5px 20px rgba(255,215,0,0.35); }
-.btn-blue { background:linear-gradient(90deg,#0088ff,#0066cc); color:white; }
+        .active-screen {
+            display: flex !important;
+        }
 
-/* ── HEADER ── */
-header {
-  background:rgba(5,11,13,0.95); backdrop-filter:blur(10px);
-  padding:13px 16px; display:flex; align-items:center;
-  justify-content:space-between;
-  border-bottom:2px solid rgba(255,215,0,0.3);
-  position:sticky; top:0; z-index:100;
-}
-.logo { font-size:1.4rem; font-weight:900; background:linear-gradient(to right,var(--green),var(--gold),var(--red)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-.user-chip { background:rgba(255,215,0,0.1); border:1px solid rgba(255,215,0,0.3); border-radius:20px; padding:5px 12px; font-size:0.8rem; color:var(--gold); font-weight:bold; }
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: var(--radius);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+        }
 
-/* ── MAIN LAYOUT ── */
-main { padding:14px; padding-bottom:90px; max-width:500px; margin:0 auto; }
-.card {
-  background:rgba(255,255,255,0.05);
-  border:1px solid rgba(255,255,255,0.1);
-  border-radius:var(--radius); padding:18px;
-  margin-bottom:14px;
-  box-shadow:0 8px 25px rgba(0,0,0,0.4);
-  animation: slideUp 0.4s ease;
-}
+        input, button {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: none;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
 
-/* ── STATS GRID ── */
-.stats-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px; }
-.stat-card {
-  background:rgba(255,255,255,0.06);
-  border:1px solid rgba(255,255,255,0.1);
-  border-radius:14px; padding:14px; text-align:center;
-}
-.stat-card.full { grid-column:span 2; }
-.stat-card.prize-card { background:linear-gradient(135deg,rgba(0,255,102,0.08),rgba(255,215,0,0.08)); border:2px dashed var(--gold); }
-.stat-label { font-size:0.78rem; color:#888; text-transform:uppercase; letter-spacing:0.5px; }
-.stat-val { font-size:1.6rem; font-weight:800; color:var(--gold); margin-top:4px; }
-.stat-val.green { color:var(--green); }
+        input {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
 
-/* ── CALLED NUMBERS STRIP ── */
-.called-strip {
-  display:flex; gap:6px; overflow-x:auto; padding:8px 0;
-}
-.called-num-pill {
-  flex-shrink:0; background:rgba(0,255,102,0.15);
-  border:1px solid var(--green); border-radius:20px;
-  padding:4px 10px; font-size:0.85rem; font-weight:bold;
-  color:var(--green);
-}
+        button {
+            background: linear-gradient(135deg, #00FF66, #00cc52);
+            color: black;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
 
-/* ── BINGO BOARD NUMBERS ── */
-.grid5 { display:grid; grid-template-columns:repeat(5,1fr); gap:5px; }
-.cell {
-  aspect-ratio:1; border-radius:10px;
-  display:flex; align-items:center; justify-content:center;
-  font-size:1.1rem; font-weight:bold; cursor:pointer;
-  border:1.5px solid rgba(255,255,255,0.08);
-  background:rgba(255,255,255,0.06);
-}
+        button:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 15px rgba(0,255,102,0.4);
+        }
 
-/* ── ADMIN NUMBER DISPLAY ── */
-.big-num-display { text-align:center; margin:10px 0; }
-.big-letter { font-size:3.5rem; font-weight:900; color:var(--green); line-height:1; }
-.big-number { font-size:5rem; font-weight:900; color:var(--gold); line-height:1; }
+        /* BINGO BOARD */
+        #bingo-board {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            width: 100%;
+            max-width: 450px;
+            background-color: rgba(255, 255, 255, 0.02);
+            padding: 15px;
+            border-radius: var(--radius);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            margin: 20px auto;
+            box-sizing: border-box;
+        }
 
-/* ── WINNER POPUP ── */
-.winner-box {
-  text-align:center; padding:30px 20px;
-  background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(0,255,102,0.15));
-  border:3px solid var(--gold); border-radius:24px;
-  width:100%; max-width:380px;
-}
+        .cell {
+            background-color: rgba(255, 255, 255, 0.06);
+            border: 1.5px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+            color: white;
+        }
 
-/* ── PLAYER LIST ── */
-.p-row { display:flex; align-items:center; justify-content:space-between; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.05); }
+        .cell:hover {
+            border-color: rgba(255, 255, 255, 0.25); 
+            background-color: rgba(255, 255, 255, 0.1);
+        }
 
-/* ── SEPARATOR ── */
-.sep { border:none; border-top:1px solid rgba(255,255,255,0.07); margin:14px 0; }
+        .cell.marked {
+            background: linear-gradient(135deg, #00FF66, #00cc52) !important;
+            color: black !important; 
+            border-color: var(--green) !important;
+            box-shadow: 0 0 14px rgba(0, 255, 102, 0.5);
+            animation: pulse 0.3s ease-in-out;
+        }
 
-.pg { display:none; }
-.pg.active { display:block; }
+        .cell.free {
+            background: linear-gradient(135deg, var(--red), #cc0028); 
+            color: white; 
+            font-size: 0.75rem; 
+            font-weight: 900;
+        }
 
-.status-banner { text-align:center; padding:10px; border-radius:12px; font-weight:bold; margin-bottom:12px; font-size:0.9rem; }
-.status-banner.on { background:rgba(0,255,102,0.1); border:1px solid rgba(0,255,102,0.3); color:var(--green); }
-.status-banner.off { background:rgba(255,0,51,0.1); border:1px solid rgba(255,0,51,0.3); color:var(--red); }
+        .cell.free.marked {
+            background: linear-gradient(135deg, var(--gold), #ffaa00) !important;
+            color: black !important;
+            border-color: var(--gold) !important;
+            box-shadow: 0 0 14px rgba(255, 215, 0, 0.6);
+        }
 
-nav {
-  position:fixed; bottom:0; left:0; width:100%;
-  background:#050b13; display:flex;
-  border-top:2px solid rgba(255,215,0,0.15); z-index:100;
-}
-.tb {
-  flex:1; border:none; background:transparent;
-  color:rgba(255,255,255,0.4); padding:11px 4px;
-  font-size:0.75rem; cursor:pointer;
-  display:flex; flex-direction:column; align-items:center; gap:3px;
-}
-.tb.active { color:var(--gold); font-weight:bold; }
-.tb svg { width:22px; height:22px; fill:currentColor; }
-</style>
+        #status {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--yellow);
+            margin-top: 15px;
+            min-height: 30px;
+        }
+
+        .won-message {
+            color: var(--green) !important;
+            animation: bounce 0.5s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-8px); }
+        }
+    </style>
 </head>
 <body>
 
-<div id="admin-login-screen" class="overlay-screen">
-  <div class="login-box">
-    <div style="text-align:center; font-size:3rem; margin-bottom:10px;">🎱</div>
-    <h2>ይስማዉ ቢንጎ Pro</h2>
-    <p class="login-sub">አስተዳዳሪ ሆነው ለመግባት ፓስወርድ ያስገቡ</p>
-    <input type="password" id="adm-pass" class="inp" placeholder="Admin Password..."/>
-    <button class="btn btn-green" onclick="adminLogin()">🔓 Admin ሆኜ ግባ</button>
-    <hr class="sep"/>
-    <p class="login-sub" style="font-size:0.8rem;">ተጫዋች ከሆኑ ከታች ይጫኑ</p>
-    <button class="btn btn-blue" onclick="showPlayerEntry()">👤 ተጫዋች ነኝ (Player)</button>
-  </div>
-</div>
+    <h1>🎱 ይስማዉ ቢንጎ Pro 🏆</h1>
 
-<div id="player-wait-screen" class="overlay-screen" style="display:none;">
-  <div class="login-box">
-    <div style="text-align:center; font-size:3rem; margin-bottom:10px;">🎱</div>
-    <h2>ይስማዉ ቢንጎ</h2>
-    <div id="player-wait-state">
-      <div id="pw-name-form">
-        <p class="login-sub">ስምዎን ያስገቡ እና ይቀጥሉ</p>
-        <input type="text" id="pw-name-inp" class="inp" placeholder="ሙሉ ስምዎን ያስገቡ..."/>
-        <button class="btn btn-green" onclick="playerEnterName()">ቀጥል →</button>
-      </div>
-      <div id="pw-waiting" style="display:none; text-align:center;">
-        <div style="font-size:2rem; margin:10px 0;">⏳</div>
-        <p style="color:var(--yellow); font-weight:bold; margin-bottom:8px;" id="pw-wait-msg">አስተዳዳሪው ጨዋታውን እስኪጀምር ይጠብቁ...</p>
-        <p style="color:#aaa; font-size:0.85rem;" id="pw-name-shown"></p>
-        <div style="margin-top:15px; padding:10px; background:rgba(255,255,255,0.03); border-radius:10px;">
-          <p style="font-size:0.8rem; color:#666;">🎮 ጨዋታው ሲጀምር በራስ-ሰር ይከፈትልዎታል</p>
+    <div id="admin-login-screen" class="screen active-screen">
+        <div class="card">
+            <h2>🛡️ የአድሚን መቆጣጠሪያ</h2>
+            <input type="password" id="adm-pass" placeholder="የአድሚን ፓስወርድ ያስገቡ...">
+            <button onclick="adminLogin()">ግባ (Login)</button>
+            <p style="margin: 15px 0 5px; color: #aaa;">ወይም ተጫዋች ከሆንክ፦</p>
+            <button style="background: #0088ff; color: white;" onclick="showPlayerEntry()">እንደ ተጫዋች ግባ</button>
         </div>
-      </div>
     </div>
-  </div>
-</div>
 
-<div id="winner-screen" class="overlay-screen">
-  <div class="winner-box">
-    <div class="confetti">🎉🏆🎉</div>
-    <h2 style="color:white; font-size:1.2rem; margin:10px 0;">BINGO! አሸናፊ!</h2>
-    <div class="winner-name" id="winner-name-txt">---</div>
-    <div style="color:#aaa; font-size:0.9rem; margin-bottom:8px;">ሽልማት</div>
-    <div class="winner-prize" id="winner-prize-txt">0 ብር</div>
-    <button class="btn btn-gold" style="margin-top:20px;" onclick="closeWinnerScreen()">እሺ</button>
-  </div>
-</div>
+    <div id="player-wait-screen" class="screen">
+        <div class="card">
+            <div id="pw-name-form">
+                <h2>👤 መለያ ስምዎን ያስገቡ</h2>
+                <input type="text" id="pw-name-inp" placeholder="ሙሉ ስምዎን እዚህ ይፃፉ...">
+                <button onclick="playerEnterName()">ካርቴላ አውጣና ጀምር</button>
+            </div>
 
-<header>
-  <div class="logo">🎱 ይስማዉ ቢንጎ</div>
-  <div class="user-chip" id="user-chip">ጌስት</div>
-</header>
-
-<main>
-  <div id="pg-lobby" class="pg active">
-    <div id="game-status-banner" class="status-banner off">🔴 ጨዋታ አሁን ዝግ ነው</div>
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-label">ንቁ ተጫዋቾች</div>
-        <div class="stat-val" id="s-players">0</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">የወጡ ቁጥሮች</div>
-        <div class="stat-val" id="s-called">0</div>
-      </div>
+            <div id="pw-waiting" style="display: none;">
+                <h3 id="pw-name-shown" style="color: var(--gold);">ስም: </h3>
+                <div id="status"></div>
+                <div id="bingo-board"></div>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <div id="pg-admin" class="pg">
-    <div class="card" style="border:2px solid var(--gold);">
-      <h3 style="color:var(--gold); margin-bottom:14px;">⚙️ አስተዳዳሪ ማዕከል</h3>
-      <button class="btn btn-green" onclick="drawNumber()">🎱 አዲስ ቁጥር አውጣ</button>
-    </div>
-    <div class="card">
-      <h4 style="color:var(--green); margin-bottom:12px;">✅ ንቁ ተጫዋቾች</h4>
-      <div id="admin-active-list"></div>
-    </div>
-  </div>
-</main>
+    <script>
+        // 1. FIREBASE CONFIGURATION (የራስህን እውነተኛ ቁልፎች ተካባቸው)
+        const firebaseConfig = {
+            apiKey: "AIzaSyA1...",
+            authDomain: "yismaw-bingo.firebaseapp.com",
+            databaseURL: "https://yismaw-bingo-default-rtdb.firebaseio.com",
+            projectId: "yismaw-bingo",
+            storageBucket: "yismaw-bingo.appspot.com",
+            messagingSenderId: "12345678",
+            appId: "1:123456:web:abcdef"
+        };
 
-<nav id="main-nav" style="display:none;">
-  <button class="tb active" onclick="showPage('lobby',this)" id="nv-lobby"><span>ሎቢ</span></button>
-  <button class="tb" onclick="showPage('admin',this)" id="nv-admin" style="display:none;"><span>አስተዳዳሪ</span></button>
-</nav>
+        // Firebase-ን ማስነሳት
+        if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
 
-<script>
-// ══════════════════════════════
-//  FIREBASE CONFIG
-// ══════════════════════════════
-const firebaseConfig = {
-  apiKey: "AIzaSyA1...",
-  authDomain: "yismaw-bingo.firebaseapp.com",
-  databaseURL: "https://yismaw-bingo-default-rtdb.firebaseio.com",
-  projectId: "yismaw-bingo",
-  storageBucket: "yismaw-bingo.appspot.com",
-  messagingSenderId: "12345678",
-  appId: "1:123456:web:abcdef"
-};
+        const CONFIG = { ADMIN_PASSWORD: "admin123" };
+        const STATE = {
+            role: null,
+            playerName: "",
+            SIZE: 5,
+            grid: Array(5).fill(null).map(() => Array(5).fill(false))
+        };
 
-if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
+        // ገጹ ሲከፈት ዩአርኤል (URL) ላይ ተጫዋች መሆኑን ቼክ ያደርጋል
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const role = urlParams.get('role');
 
-const CFG = { ADMIN_PASSWORD: "admin123" };
-const ST = { role: null, player: null, players: [], gameActive: false };
+            if (role === 'player') {
+                switchScreen('player-wait-screen');
+            }
+        });
 
-const $ = id => document.getElementById(id);
+        function switchScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active-screen'));
+            document.getElementById(screenId).classList.add('active-screen');
+        }
 
-// ⚡ ══════════════════════════════
-//  🌟 URL PARAMETER CHECK (ለመለያየት የተጨመረ)
-//  ══════════════════════════════
-window.addEventListener('DOMContentLoaded', () => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const role = urlParams.get('role');
+        function showPlayerEntry() {
+            switchScreen('player-wait-screen');
+        }
 
-  if (role === 'player') {
-    // ተጫዋች ከሆነ አድሚን ገጹን ዘግቶ በቀጥታ ስም ማስገቢያ ያሳያል
-    $('admin-login-screen').style.display = 'none';
-    $('player-wait-screen').style.display = 'flex';
-    $('pw-name-form').style.display = 'block';
-    $('pw-waiting').style.display = 'none';
-  }
-});
+        // አድሚን ሲገባ
+        function adminLogin() {
+            const pass = document.getElementById('adm-pass').value;
+            if (pass === CONFIG.ADMIN_PASSWORD) {
+                alert("🛡️ እንኳን ደህና መጡ አድሚን! (እዚህ ላይ የአድሚን ገጽ ማሳያ መስራት ትችላለህ)");
+            } else {
+                alert("❌ የተሳሳተ ፓስወርድ ነው!");
+            }
+        }
 
-function adminLogin() {
-  const pass = $('adm-pass').value;
-  if(pass !== CFG.ADMIN_PASSWORD) { alert('❌ ስህተት ፓስወርድ!'); return; }
-  ST.role = 'admin';
-  $('admin-login-screen').style.display = 'none';
-  $('main-nav').style.display = 'flex';
-  $('nv-admin').style.display = 'flex';
-  $('user-chip').textContent = '🛡 Admin';
-  listenFirebase();
-  showPage('admin', $('nv-admin'));
-}
+        // ተጫዋቹ ስሙን አስገብቶ ሲጫን
+        function playerEnterName() {
+            const nameInp = document.getElementById('pw-name-inp').value.trim();
+            if (!nameInp) { alert("እባክዎ ስምዎን ያስገቡ!"); return; }
 
-function showPlayerEntry() {
-  $('admin-login-screen').style.display = 'none';
-  $('player-wait-screen').style.display = 'flex';
-}
+            STATE.playerName = nameInp;
+            
+            // ወደ Firebase ዳታቤዝ ለመላክ
+            const pId = 'p_' + Date.now();
+            db.ref('players/' + pId).set({
+                id: pId,
+                name: nameInp,
+                status: 'active'
+            });
 
-function playerEnterName() {
-  const name = $('pw-name-inp').value.trim();
-  if(!name) { alert('እባክዎ ስምዎን ያስገቡ'); return; }
+            // ፎርሙን ደብቆ ቦርዱን ማሳየት
+            document.getElementById('pw-name-form').style.display = 'none';
+            document.getElementById('pw-waiting').style.display = 'block';
+            document.getElementById('pw-name-shown').textContent = '👤 ተጫዋች: ' + nameInp;
 
-  const pid = 'p_' + Date.now();
-  ST.player = { id: pid, name, status: 'waiting', role: 'player' };
-  ST.role = 'player';
+            // የቢንጎ ካርቴላውን ማመንጨት
+            setupBingoBoard();
+        }
 
-  // እዚህ ጋ መረጃው ወደ Firebase ይላካል!
-  db.ref('players/' + pid).set(ST.player);
+        // የቢንጎ 5x5 ቁጥሮችን በህጉ መሰረት ማመንጫ
+        function generateBingoNumbers() {
+            const ranges = [
+                { min: 1, max: 15 },   // B
+                { min: 16, max: 30 },  // I
+                { min: 31, max: 45 },  // N
+                { min: 46, max: 60 },  // G
+                { min: 61, max: 75 }   // O
+            ];
 
-  $('pw-name-form').style.display = 'none';
-  $('pw-waiting').style.display = 'block';
-  $('pw-name-shown').textContent = 'ስም: ' + name;
+            let numbers = Array(STATE.SIZE).fill(null).map(() => []);
 
-  listenFirebase();
-}
+            for (let col = 0; col < STATE.SIZE; col++) {
+                const pool = [];
+                for (let i = ranges[col].min; i <= ranges[col].max; i++) {
+                    pool.push(i);
+                }
+                // Shuffle (ቁጥሮቹን መቀላቀል)
+                for (let i = pool.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [pool[i], pool[j]] = [pool[j], pool[i]];
+                }
+                numbers[col] = pool.slice(0, STATE.SIZE);
+            }
+            return numbers;
+        }
 
-function listenFirebase() {
-  // የተጫዋቾች ዝርዝር ለአድሚኑ እንዲደርስ የሚያደርግ ሊስነር
-  db.ref('players').on('value', snap => {
-    const data = snap.val();
-    const listDiv = $('admin-active-list');
-    if(!listDiv) return;
-    listDiv.innerHTML = '';
-    
-    let count = 0;
-    if(data) {
-      Object.keys(data).forEach(key => {
-        count++;
-        const p = data[key];
-        listDiv.innerHTML += `<div class="p-row"><span>👤 ${p.name}</span> <span class="user-chip">${p.status}</span></div>`;
-      });
-    }
-    if($('s-players')) $('s-players').textContent = count;
-  });
-}
+        // የቢንጎ ካርቴላውን ሰርቶ HTML ላይ መትከል
+        function setupBingoBoard() {
+            const board = document.getElementById('bingo-board');
+            if (!board) return;
+            board.innerHTML = '';
 
-function showPage(pgId, btn) {
-  document.querySelectorAll('.pg').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tb').forEach(b => b.classList.remove('active'));
-  $('pg-' + pgId).classList.add('active');
-  if(btn) btn.classList.add('active');
-}
-</script>
+            const bingoNumbers = generateBingoNumbers();
+
+            for (let row = 0; row < STATE.SIZE; row++) {
+                for (let col = 0; col < STATE.SIZE; col++) {
+                    const cell = document.createElement('div');
+                    cell.classList.add('cell');
+
+                    // መሃል ላይ FREE ቦታ ለመስጠት
+                    if (row === 2 && col === 2) {
+                        cell.textContent = "FREE";
+                        cell.classList.add('free', 'marked');
+                        STATE.grid[row][col] = true;
+                    } else {
+                        // ቁጥሮቹን በአምድ (Column) መደርደር
+                        cell.textContent = bingoNumbers[col][row];
+
+                        cell.addEventListener('click', () => {
+                            if (!cell.classList.contains('marked')) {
+                                cell.classList.add('marked');
+                                STATE.grid[row][col] = true;
+                                checkWin();
+                            } else {
+                                cell.classList.remove('marked');
+                                STATE.grid[row][col] = false;
+                                document.getElementById('status').textContent = "";
+                                document.getElementById('status').classList.remove('won-message');
+                            }
+                        });
+                    }
+                    board.appendChild(cell);
+                }
+            }
+        }
+
+        // የማሸነፊያ ቀመር
+        function checkWin() {
+            // 1. አግድም (Rows)
+            for (let r = 0; r < STATE.SIZE; r++) {
+                if (STATE.grid[r].every(val => val)) { return showWin(); }
+            }
+
+            // 2. በቁም (Columns)
+            for (let c = 0; c < STATE.SIZE; c++) {
+                let colWin = true;
+                for (let r = 0; r < STATE.SIZE; r++) {
+                    if (!STATE.grid[r][c]) { colWin = false; break; }
+                }
+                if (colWin) { return showWin(); }
+            }
+
+            // 3. በሰያፍ (Diagonals)
+            let diag1 = true, diag2 = true;
+            for (let i = 0; i < STATE.SIZE; i++) {
+                if (!STATE.grid[i][i]) diag1 = false;
+                if (!STATE.grid[i][STATE.SIZE - 1 - i]) diag2 = false;
+            }
+            if (diag1 || diag2) { return showWin(); }
+        }
+
+        function showWin() {
+            const statusText = document.getElementById('status');
+            statusText.textContent = "🎉 ቢንጎ! አሸንፈሃል! 🏆";
+            statusText.classList.add('won-message');
+        }
+    </script>
 </body>
 </html>
