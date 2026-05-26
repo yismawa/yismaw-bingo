@@ -1,89 +1,107 @@
-/* ማሳሰቢያ፡ ይህንን ኮድ style.css በሚል ፋይል አስቀምጠው */
+/* ── 🎱 ይስማዉ ቢንጎ Pro - የተዋሃደ ስታይል ── */
+:root {
+    --gold: #FFD700;
+    --radius: 16px;
+    --green: #00FF66;
+    --yellow: #FFFF00;
+    --red: #FF0033;
+    --blue: #0088ff;
+    --bg: #050b13;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f0f2f5;
-    margin: 0;
+    background: linear-gradient(135deg, #020608, #091920, #112530);
+    min-height: 100vh; 
+    color: white; 
+    overflow-x: hidden;
     padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: #333;
 }
 
-h1 {
-    color: #1a365d;
-    margin-bottom: 20px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
-
+/* ── 🃏 የቢንጎ ካርቴላ ግሪድ (Bingo Board) ── */
 #bingo-board {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 10px;
     max-width: 450px;
     width: 100%;
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.05);
     padding: 15px;
-    border-radius: 12px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    border-radius: var(--radius);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    margin: 15px auto;
 }
 
+/* ── 🎱 ነጠላ ቁጥሮች (Cells) ── */
 .cell {
-    background-color: #edf2f7;
-    border: 2px solid #cbd5e0;
-    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.06);
+    border: 1.5px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
     aspect-ratio: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: bold;
     cursor: pointer;
     transition: all 0.2s ease;
     user-select: none;
+    color: white;
 }
 
 .cell:hover {
-    background-color: #e2e8f0;
-    transform: scale(1.02);
+    border-color: rgba(255, 255, 255, 0.25); 
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: scale(1.04);
 }
 
-/* ተጫዋቹ ቁጥሩን ሲነካው የሚሆንበት ከለር */
+/* 🔥 ተጫዋቹ ቁጥሩን ሲነካው (Marked State) */
 .cell.marked {
-    background-color: #3182ce;
-    color: #fff;
-    border-color: #2b6cb0;
+    background: linear-gradient(135deg, #00FF66, #00cc52) !important;
+    color: black !important; 
+    border-color: var(--green) !important;
+    box-shadow: 0 0 14px rgba(0, 255, 102, 0.5);
     animation: pulse 0.3s ease-in-out;
 }
 
-/* መሃል ላይ ያለችው ፍሪ ቦታ */
-.cell.free-space {
-    background-color: #feebc8;
-    color: #dd6b20;
-    border-color: #fbd38d;
-    font-size: 0.9rem;
+/* 🎁 መሃል ላይ ያለችው ፍሪ ቦታ (FREE SPACE) */
+.cell.free {
+    background: linear-gradient(135deg, var(--red), #cc0028); 
+    color: white; 
+    font-size: 0.75rem; 
+    font-weight: 900;
+    text-align: center;
+    border-color: var(--red);
+}
+
+.cell.free.marked {
+    background: linear-gradient(135deg, var(--gold), #ffaa00) !important;
+    color: black !important;
+    border-color: var(--gold) !important;
+    box-shadow: 0 0 14px rgba(255, 215, 0, 0.6);
+}
+
+/* 🏆 የማሸነፊያ መልዕክት (Status) */
+#status {
+    margin-top: 20px;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--yellow);
+    height: 30px;
     text-align: center;
 }
 
-.cell.free-space.marked {
-    background-color: #dd6b20;
-    color: #fff;
-}
-
-#status {
-    margin-top: 20px;
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: #2d3748;
-    height: 30px;
-}
-
 .won-message {
-    color: #38a169 !important;
+    color: var(--green) !important;
+    text-shadow: 0 0 10px rgba(0, 255, 102, 0.5);
     animation: bounce 0.5s infinite alternate;
 }
 
+/* ── 💫 ANIMATIONS ── */
 @keyframes pulse {
     0% { transform: scale(1); }
     50% { transform: scale(1.1); }
@@ -92,5 +110,5 @@ h1 {
 
 @keyframes bounce {
     from { transform: translateY(0); }
-    to { transform: translateY(-5px); }
+    to { transform: translateY(-8px); }
 }
